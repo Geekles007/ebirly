@@ -3,7 +3,7 @@ name: TNJL PORTOFOLIO
 on:
   push:
     branches:
-      - dev
+      - master
 
 permissions:
   id-token: write
