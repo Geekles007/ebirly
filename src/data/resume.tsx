@@ -1,5 +1,5 @@
 import { Icons } from '@/components/icons';
-import { HomeIcon, NotebookIcon } from 'lucide-react';
+import { HomeIcon } from 'lucide-react';
 
 export const DATA = {
   name: 'Tondji Niat J. Lee',
@@ -25,6 +25,8 @@ export const DATA = {
     'Framer Motion',
     'GraphQL',
     'Docker',
+    'Aws',
+    'Github Actions',
     'PostgreSQL',
     'Laravel',
     'Nest.js',
@@ -250,29 +252,29 @@ export const DATA = {
     },
   ],
   projects: [
-    {
-      title: 'Birthdays',
-      // href: "https://magicui.design",
-      dates: '',
-      active: true,
-      description:
-        'Just a funny component I developed, inspired by a web developer & designer on twitter.',
-      technologies: ['Next.js', 'Typescript', 'Framer motion', 'TailwindCSS'],
-      links: [
-        {
-          type: 'Website',
-          href: 'https://birthdays-seven.vercel.app/',
-          icon: <Icons.globe className='size-3' />,
-        },
-        {
-          type: 'Source',
-          href: 'https://github.com/Geekles007/birthdays',
-          icon: <Icons.github className='size-3' />,
-        },
-      ],
-      image: '',
-      video: '/works/birthdays.mov',
-    },
+    // {
+    //   title: 'Birthdays',
+    //   // href: "https://magicui.design",
+    //   dates: '',
+    //   active: true,
+    //   description:
+    //     'Just a funny component I developed, inspired by a web developer & designer on twitter.',
+    //   technologies: ['Next.js', 'Typescript', 'Framer motion', 'TailwindCSS'],
+    //   links: [
+    //     {
+    //       type: 'Website',
+    //       href: 'https://birthdays-seven.vercel.app/',
+    //       icon: <Icons.globe className='size-3' />,
+    //     },
+    //     {
+    //       type: 'Source',
+    //       href: 'https://github.com/Geekles007/birthdays',
+    //       icon: <Icons.github className='size-3' />,
+    //     },
+    //   ],
+    //   image: '',
+    //   video: '/works/birthdays.mov',
+    // },
     {
       title: 'Ibird Agency',
       // href: "https://environnement-immobilier.macif.fr/",
@@ -290,7 +292,7 @@ export const DATA = {
       links: [
         {
           type: 'Website',
-          href: 'https://environnement-immobilier.macif.fr/',
+          href: 'https://ibirdagency.vercel.app/',
           icon: <Icons.globe className='size-3' />,
         },
         {
@@ -301,6 +303,56 @@ export const DATA = {
       ],
       image: '',
       video: '/works/ibird.mov',
+    },
+    {
+      title: 'Emplacement immo',
+      // href: "https://environnement-immobilier.macif.fr/",
+      dates: '',
+      active: true,
+      description: 'Real estate consulting platform for Lokimo',
+      technologies: [
+        'Next.js',
+        'Typescript',
+        'Python',
+        'TailwindCSS',
+        'Framer Motion',
+        'GSAP',
+        'Vercel',
+      ],
+      links: [
+        {
+          type: 'Website',
+          href: 'https://emplacement.immo/',
+          icon: <Icons.globe className='size-3' />,
+        },
+      ],
+      image: '',
+      video: '/works/emplacement.immo.mov',
+    },
+    {
+      title: 'Environnement immobilier Macif',
+      // href: "https://environnement-immobilier.macif.fr/",
+      dates: '',
+      active: true,
+      description: 'Real estate consulting platform for Macif.fr',
+      technologies: [
+        'Next.js',
+        'Typescript',
+        'Python',
+        'TailwindCSS',
+        'Framer Motion',
+        'GSAP',
+        'Vercel',
+      ],
+      links: [
+        {
+          type: 'Website',
+          href: 'https://environnement-immobilier.macif.fr/',
+          icon: <Icons.globe className='size-3' />,
+        },
+      ],
+      image: '',
+      video: '/works/environnement.mov',
     },
     {
       title: 'Lokimo ai',
@@ -353,6 +405,100 @@ export const DATA = {
       ],
       image: '',
       video: '/works/henspiration.mov',
+    },
+    {
+      title: 'IFCameroun',
+      // href: "https://automatic.chat",
+      // dates: "April 2023 - March 2024",
+      active: true,
+      description: "l'Institut Français au Cameroun website",
+      technologies: [
+        'Next.js',
+        'Sass',
+        'Framer motion',
+        'Typescript',
+        'Strapi.io',
+        'Node.js',
+        'Aws',
+      ],
+      links: [
+        {
+          type: 'Website',
+          href: 'https://www.ifcameroun.com',
+          icon: <Icons.globe className='size-3' />,
+        },
+      ],
+      image: '',
+      video: '/works/ifcameroon.mov',
+    },
+    {
+      title: 'Mapping',
+      // href: "https://automatic.chat",
+      // dates: "April 2023 - March 2024",
+      active: true,
+      description: 'Map opening with Framer motion',
+      technologies: [
+        'Next.js',
+        'Sass',
+        'Framer motion',
+        'Typescript',
+        'Node.js',
+      ],
+      links: [
+        {
+          type: 'Source',
+          href: '#',
+          icon: <Icons.globe className='size-3' />,
+        },
+      ],
+      image: '',
+      video: '/works/mapping.mov',
+    },
+    // {
+    //   title: 'Credit card form',
+    //   // href: "https://automatic.chat",
+    //   // dates: "April 2023 - March 2024",
+    //   active: true,
+    //   description: 'Credit card form built with framer motion',
+    //   technologies: [
+    //     'Next.js',
+    //     'Sass',
+    //     'Framer motion',
+    //     'Typescript',
+    //     'Node.js'
+    //   ],
+    //   links: [
+    //     {
+    //       type: 'Source',
+    //       href: '#',
+    //       icon: <Icons.globe className='size-3' />,
+    //     },
+    //   ],
+    //   image: '',
+    //   video: '/works/credit-card.mov',
+    // },
+    {
+      title: 'Timeline with Framer motion',
+      // href: "https://automatic.chat",
+      // dates: "April 2023 - March 2024",
+      active: true,
+      description: 'Timeline with custom cursor using framer motion',
+      technologies: [
+        'Next.js',
+        'Sass',
+        'Typescript',
+        'Framer motion',
+        'Node.js',
+      ],
+      links: [
+        {
+          type: 'Source',
+          href: '#',
+          icon: <Icons.github className='size-3' />,
+        },
+      ],
+      image: '',
+      video: '/works/timeline.mov',
     },
   ],
 } as const;

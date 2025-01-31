@@ -1,5 +1,4 @@
 import DribbbleGallery from '@/components/dribbble-gallery';
-import { HackathonCard } from '@/components/hackathon-card';
 import HobbyCard from '@/components/hobby-card';
 import BlurFade from '@/components/magicui/blur-fade';
 import BlurFadeText from '@/components/magicui/blur-fade-text';
