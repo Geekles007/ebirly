@@ -17,8 +17,15 @@ const PostImageCard = ({title, image}: PostImageCardProps) => {
     )}
   >
     <div className="absolute inset-0">
-      <Image data-type="link" data-text="Open" loading={'lazy'} 
-    sizes="208px" priority={false} className="object-contain object-center" fill alt="" src={image} />
+      <Image data-type="link"
+             data-text="Open"
+             loading={'lazy'}
+             sizes="208px"
+             priority={false}
+             className="object-contain object-center"
+             fill
+             alt=""
+             src={image?.startsWith("http") ? image : ('_next/image?url=' + image)} />
     </div>
     <blockquote className="mt-2 text-sm">{title}</blockquote>
   </figure>
