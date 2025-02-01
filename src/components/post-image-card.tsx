@@ -25,7 +25,8 @@ const PostImageCard = ({title, image}: PostImageCardProps) => {
              className="object-contain object-center"
              fill
              alt=""
-             src={image?.startsWith("http") ? image : ('_next/image?url=' + image)} />
+             unoptimized={true}
+             src={image} />
     </div>
     <blockquote className="mt-2 text-sm">{title}</blockquote>
   </figure>
