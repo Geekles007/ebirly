@@ -4,6 +4,7 @@ const nextConfig = {
   output: 'export',
   images: {
     domains: ['cdn.dribbble.com'],
+    unoptimized: true,
     // loader: 'custom',
     // path: 'https://cdn.dribbble.com/',
   },

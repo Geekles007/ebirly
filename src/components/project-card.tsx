@@ -71,13 +71,20 @@ export function ProjectCard({
             onError={() => setVideoFailed(true)}
           />
         ) : (
-          <Image
-            src={image || "/images/video-placeholder.jpg"}
-            alt={title}
-            width={500}
-            height={300}
-            className="h-40 w-full overflow-hidden object-cover object-top"
-          />
+          <div className="h-40 w-full bg-gray-100 flex items-center justify-center">
+            {image ? (
+              <Image
+                src={image}
+                alt={title}
+                width={500}
+                height={300}
+                className="h-40 w-full overflow-hidden object-cover object-top"
+                unoptimized
+              />
+            ) : (
+              <div className="text-gray-400 text-sm">No preview available</div>
+            )}
+          </div>
         )}
       </Link>
       <CardHeader className="px-2">
