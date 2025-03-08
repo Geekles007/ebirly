@@ -51,7 +51,7 @@ export default function OptimizedVideo({
     if (!isLoading || !isMounted) return;
     
     const timer = setTimeout(() => {
-      console.log('Loading timeout reached for video:', src);
+    //   console.log('Loading timeout reached for video:', src);
       setIsLoading(false);
     }, 5000);
     
@@ -64,7 +64,7 @@ export default function OptimizedVideo({
 
     // Try to play the video immediately
     videoRef.current.play().catch((error) => {
-      console.log('Initial video play error:', error);
+    //   console.log('Initial video play error:', error);
       // Some browsers require user interaction before playing videos
       // We'll still show the first frame
       setIsLoading(false);
@@ -73,7 +73,7 @@ export default function OptimizedVideo({
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          console.log('Intersection observer entry:', entry.isIntersecting, src);
+        //   console.log('Intersection observer entry:', entry.isIntersecting, src);
           if (entry.isIntersecting) {
             setIsVisible(true);
             if (videoRef.current) {
