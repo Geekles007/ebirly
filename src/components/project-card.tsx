@@ -49,7 +49,13 @@ export function ProjectCard({
   
   useEffect(() => {
     setIsMounted(true);
-  }, []);
+    console.log('ProjectCard mounted, has video:', !!video, video);
+  }, [video]);
+  
+  const handleVideoError = () => {
+    console.log('Video failed to load:', video);
+    setVideoFailed(true);
+  };
   
   return (
     <Card
@@ -68,7 +74,8 @@ export function ProjectCard({
             className="h-40 w-full"
             objectPosition="top"
             showLoadingIndicator={true}
-            onError={() => setVideoFailed(true)}
+            priority={true}
+            onError={handleVideoError}
           />
         ) : (
           <div className="h-40 w-full bg-gray-100 flex items-center justify-center">

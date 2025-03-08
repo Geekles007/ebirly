@@ -27,47 +27,55 @@ export default function OptimizedVideo({
   onError,
 }: OptimizedVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isLoading, setIsLoading] = useState(true); // Always start as loading on both server and client
-  const [isVisible, setIsVisible] = useState(false); // Start as not visible for consistent hydration
+  const [isLoading, setIsLoading] = useState(true);
+  const [isVisible, setIsVisible] = useState(true); // Start as visible to ensure videos show immediately
   const [hasError, setHasError] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
   // Set mounted state after hydration
   useEffect(() => {
     setIsMounted(true);
-    if (priority) {
-      setIsVisible(true);
-      setIsLoading(!priority);
-    }
-  }, [priority]);
+    console.log('Component mounted, video src:', src);
+  }, [src]);
 
   // Add a timeout to force loading to complete after 5 seconds
   useEffect(() => {
     if (!isLoading || !isMounted) return;
     
     const timer = setTimeout(() => {
+      console.log('Loading timeout reached for video:', src);
       setIsLoading(false);
     }, 5000);
     
     return () => clearTimeout(timer);
-  }, [isLoading, isMounted]);
+  }, [isLoading, isMounted, src]);
 
+  // Play video when it becomes visible
   useEffect(() => {
     if (!videoRef.current || !isMounted) return;
+
+    // Try to play the video immediately
+    videoRef.current.play().catch((error) => {
+      console.log('Initial video play error:', error);
+      // Some browsers require user interaction before playing videos
+      // We'll still show the first frame
+      setIsLoading(false);
+    });
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          console.log('Intersection observer entry:', entry.isIntersecting, src);
           if (entry.isIntersecting) {
             setIsVisible(true);
             if (videoRef.current) {
               videoRef.current.play().catch((error) => {
-                console.log('Video play error:', error);
-                // Set loading to false even if play fails
+                console.log('Video play error on intersection:', error);
                 setIsLoading(false);
               });
             }
           } else {
+            setIsVisible(false);
             if (videoRef.current) {
               videoRef.current.pause();
             }
@@ -84,33 +92,19 @@ export default function OptimizedVideo({
         observer.unobserve(videoRef.current);
       }
     };
-  }, [isMounted]);
-
-  // If priority is true, preload and autoplay the video
-  useEffect(() => {
-    if (priority && videoRef.current && isMounted) {
-      videoRef.current.play().catch((error) => {
-        console.log('Priority video play error:', error);
-        setIsLoading(false);
-      });
-    }
-  }, [priority, isMounted]);
+  }, [isMounted, src]);
 
   const handleVideoLoaded = () => {
-    if (isMounted) {
-      console.log('Video loaded:', src);
-      setIsLoading(false);
-    }
+    console.log('Video loaded successfully:', src);
+    setIsLoading(false);
   };
 
   const handleVideoError = () => {
-    if (isMounted) {
-      console.error('Error loading video:', src);
-      setIsLoading(false);
-      setHasError(true);
-      if (onError) {
-        onError();
-      }
+    console.error('Error loading video:', src);
+    setIsLoading(false);
+    setHasError(true);
+    if (onError) {
+      onError();
     }
   };
 
@@ -134,13 +128,14 @@ export default function OptimizedVideo({
         </div>
       )}
       
-      {isMounted && (isVisible || priority) && !hasError && (
+      {isMounted && !hasError && (
         <video
           ref={videoRef}
           src={src}
           loop
           muted
           playsInline
+          autoPlay
           onLoadedData={handleVideoLoaded}
           onError={handleVideoError}
           className={cn(
