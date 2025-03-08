@@ -10,6 +10,8 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import Markdown from "react-markdown";
+import OptimizedVideo from "./optimized-video";
+import { useState } from "react";
 
 interface Props {
   title: string;
@@ -40,6 +42,8 @@ export function ProjectCard({
   links,
   className,
 }: Props) {
+  const [videoFailed, setVideoFailed] = useState(false);
+  
   return (
     <Card
       className={
@@ -50,19 +54,19 @@ export function ProjectCard({
         href={href || "#"}
         className={cn("block", className)}
       >
-        {video && (
-          <video
+        {video && !videoFailed && (
+          <OptimizedVideo 
             src={video}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="pointer-events-none mx-auto h-40 w-full object-cover object-top" // needed because random black line at bottom of video
+            height={160}
+            className="h-40 w-full"
+            objectPosition="top"
+            showLoadingIndicator={true}
+            onError={() => setVideoFailed(true)}
           />
         )}
-        {image && (
+        {(image || videoFailed) && (
           <Image
-            src={image}
+            src={image || "/images/video-placeholder.jpg"}
             alt={title}
             width={500}
             height={300}
@@ -114,3 +118,5 @@ export function ProjectCard({
     </Card>
   );
 }
+
+
