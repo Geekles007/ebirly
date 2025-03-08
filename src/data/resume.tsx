@@ -307,7 +307,7 @@ export const DATA = {
       links: [
         {
           type: 'Website',
-          href: 'https://ibirdagency.vercel.app/',
+          href: 'https://ibirdagency.com/',
           icon: <Icons.globe className='size-3' />,
         },
         {

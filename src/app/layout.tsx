@@ -4,7 +4,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { DATA } from '@/data/resume';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
-// import { Inter } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import './globals.css';
 import dynamic from 'next/dynamic';
 
@@ -12,10 +12,11 @@ const CustomCursor = dynamic(() => import('@/components/custom-cursor'), {
   ssr: false,
 });
 
-// const fontSans = Inter({
-//   subsets: ['latin'],
-//   variable: '--font-sans',
-// });
+const fontSans = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-sans',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(DATA.url),
@@ -62,8 +63,8 @@ export default function RootLayout({
     <html lang='en' suppressHydrationWarning>
       <body
         className={cn(
-          'mx-auto min-h-screen max-w-2xl bg-background px-6 py-12 font-sans antialiased sm:py-24'
-          // fontSans.variable
+          'mx-auto min-h-screen max-w-2xl bg-background px-6 py-12 font-sans antialiased sm:py-24',
+          fontSans.variable
         )}
       >
         <ThemeProvider attribute='class' defaultTheme='light'>

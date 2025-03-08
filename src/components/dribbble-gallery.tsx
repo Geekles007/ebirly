@@ -64,7 +64,7 @@ const DribbbleGallery = () => {
         <div className='pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-white dark:from-background max-sm:dark:from-background'></div>
       </div>
       <Link
-        href='https://ibirdagency.vercel.app'
+        href='https://ibirdagency.com'
         target='_blank'
         data-type='link'
         data-text="Let\'s go"
