@@ -1,3 +1,5 @@
+'use client';
+
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -11,7 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Markdown from "react-markdown";
 import OptimizedVideo from "./optimized-video";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface Props {
   title: string;
@@ -43,6 +45,11 @@ export function ProjectCard({
   className,
 }: Props) {
   const [videoFailed, setVideoFailed] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   
   return (
     <Card
@@ -54,7 +61,7 @@ export function ProjectCard({
         href={href || "#"}
         className={cn("block", className)}
       >
-        {video && !videoFailed && (
+        {isMounted && video && !videoFailed ? (
           <OptimizedVideo 
             src={video}
             height={160}
@@ -63,8 +70,7 @@ export function ProjectCard({
             showLoadingIndicator={true}
             onError={() => setVideoFailed(true)}
           />
-        )}
-        {(image || videoFailed) && (
+        ) : (
           <Image
             src={image || "/images/video-placeholder.jpg"}
             alt={title}
@@ -118,5 +124,3 @@ export function ProjectCard({
     </Card>
   );
 }
-
-

@@ -27,23 +27,33 @@ export default function OptimizedVideo({
   onError,
 }: OptimizedVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isLoading, setIsLoading] = useState(!priority);
-  const [isVisible, setIsVisible] = useState(priority);
+  const [isLoading, setIsLoading] = useState(true); // Always start as loading on both server and client
+  const [isVisible, setIsVisible] = useState(false); // Start as not visible for consistent hydration
   const [hasError, setHasError] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Set mounted state after hydration
+  useEffect(() => {
+    setIsMounted(true);
+    if (priority) {
+      setIsVisible(true);
+      setIsLoading(!priority);
+    }
+  }, [priority]);
 
   // Add a timeout to force loading to complete after 5 seconds
   useEffect(() => {
-    if (!isLoading) return;
+    if (!isLoading || !isMounted) return;
     
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 5000);
     
     return () => clearTimeout(timer);
-  }, [isLoading]);
+  }, [isLoading, isMounted]);
 
   useEffect(() => {
-    if (!videoRef.current || priority) return;
+    if (!videoRef.current || !isMounted) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -74,29 +84,33 @@ export default function OptimizedVideo({
         observer.unobserve(videoRef.current);
       }
     };
-  }, [priority]);
+  }, [isMounted]);
 
   // If priority is true, preload and autoplay the video
   useEffect(() => {
-    if (priority && videoRef.current) {
+    if (priority && videoRef.current && isMounted) {
       videoRef.current.play().catch((error) => {
         console.log('Priority video play error:', error);
         setIsLoading(false);
       });
     }
-  }, [priority]);
+  }, [priority, isMounted]);
 
   const handleVideoLoaded = () => {
-    console.log('Video loaded:', src);
-    setIsLoading(false);
+    if (isMounted) {
+      console.log('Video loaded:', src);
+      setIsLoading(false);
+    }
   };
 
   const handleVideoError = () => {
-    console.error('Error loading video:', src);
-    setIsLoading(false);
-    setHasError(true);
-    if (onError) {
-      onError();
+    if (isMounted) {
+      console.error('Error loading video:', src);
+      setIsLoading(false);
+      setHasError(true);
+      if (onError) {
+        onError();
+      }
     }
   };
 
@@ -108,19 +122,19 @@ export default function OptimizedVideo({
       )}
       style={{ height, width }}
     >
-      {isLoading && showLoadingIndicator && (
+      {isMounted && isLoading && showLoadingIndicator && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-100/20">
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-primary"></div>
         </div>
       )}
       
-      {hasError && (
+      {isMounted && hasError && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
           <p className="text-sm text-gray-500">Video could not be loaded</p>
         </div>
       )}
       
-      {(isVisible || priority) && !hasError && (
+      {isMounted && (isVisible || priority) && !hasError && (
         <video
           ref={videoRef}
           src={src}
