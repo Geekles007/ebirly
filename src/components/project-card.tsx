@@ -46,15 +46,24 @@ export function ProjectCard({
 }: Props) {
   const [videoFailed, setVideoFailed] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
     setIsMounted(true);
     console.log('ProjectCard mounted, has video:', !!video, video);
+    
+    // Ensure loading state is true for at least a short period
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    
+    return () => clearTimeout(timer);
   }, [video]);
   
   const handleVideoError = () => {
     console.log('Video failed to load:', video);
     setVideoFailed(true);
+    setIsLoading(false);
   };
   
   return (
@@ -79,6 +88,11 @@ export function ProjectCard({
           />
         ) : (
           <div className="h-40 w-full bg-gray-100 flex items-center justify-center">
+            {isLoading && (
+              <div className="absolute inset-0 flex items-center justify-center bg-gray-100/50 z-10">
+                <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-primary"></div>
+              </div>
+            )}
             {image ? (
               <Image
                 src={image}

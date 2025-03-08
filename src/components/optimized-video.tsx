@@ -28,15 +28,23 @@ export default function OptimizedVideo({
 }: OptimizedVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isVisible, setIsVisible] = useState(true); // Start as visible to ensure videos show immediately
+  const [isVisible, setIsVisible] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [isVideoReady, setIsVideoReady] = useState(false);
 
   // Set mounted state after hydration
   useEffect(() => {
     setIsMounted(true);
-    console.log('Component mounted, video src:', src);
-  }, [src]);
+    // Ensure loading state is true for at least 500ms to show the loading indicator
+    const timer = setTimeout(() => {
+      if (!isVideoReady) {
+        console.log('Still loading video after timeout:', src);
+      }
+    }, 500);
+    
+    return () => clearTimeout(timer);
+  }, [src, isVideoReady]);
 
   // Add a timeout to force loading to complete after 5 seconds
   useEffect(() => {
@@ -96,7 +104,12 @@ export default function OptimizedVideo({
 
   const handleVideoLoaded = () => {
     console.log('Video loaded successfully:', src);
-    setIsLoading(false);
+    // Add a small delay before hiding the loading indicator
+    // This ensures users see the loading indicator even for fast-loading videos
+    setTimeout(() => {
+      setIsLoading(false);
+      setIsVideoReady(true);
+    }, 500);
   };
 
   const handleVideoError = () => {
@@ -117,13 +130,13 @@ export default function OptimizedVideo({
       style={{ height, width }}
     >
       {isMounted && isLoading && showLoadingIndicator && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-100/20">
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-100/50 z-10">
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-primary"></div>
         </div>
       )}
       
       {isMounted && hasError && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-100 z-10">
           <p className="text-sm text-gray-500">Video could not be loaded</p>
         </div>
       )}
@@ -137,10 +150,11 @@ export default function OptimizedVideo({
           playsInline
           autoPlay
           onLoadedData={handleVideoLoaded}
+          onLoadStart={() => setIsLoading(true)}
           onError={handleVideoError}
           className={cn(
             "pointer-events-none",
-            isLoading ? "opacity-0" : "opacity-100",
+            isLoading ? "opacity-50" : "opacity-100",
             "transition-opacity duration-300"
           )}
           style={{
