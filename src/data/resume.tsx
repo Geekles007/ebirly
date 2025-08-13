@@ -238,6 +238,13 @@ export const DATA = {
       logoUrl: '/udemy.png',
       start: 'April 2021',
     },
+    {
+      company: 'Udemy',
+      href: 'https://www.udemy.com/certificate/UC-f42d1e15-1e1e-4cc5-b9d6-c5d0a41e016c/',
+      title: 'NestJS: The complete developer\'s guide',
+      logoUrl: '/udemy.png',
+      start: 'August 2025',
+    },
   ],
   education: [
     {
