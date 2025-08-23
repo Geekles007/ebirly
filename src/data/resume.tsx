@@ -90,6 +90,12 @@ export const DATA = {
 
         navbar: false,
       },
+      cv: {
+        name: 'Download CV',
+        url: '/cv.pdf',
+        icon: Icons.download,
+        navbar: true,
+      },
     },
   },
   hobbies: [

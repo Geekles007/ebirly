@@ -4,6 +4,7 @@ import BlurFade from '@/components/magicui/blur-fade';
 import BlurFadeText from '@/components/magicui/blur-fade-text';
 import { ProjectCard } from '@/components/project-card';
 import { ResumeCard } from '@/components/resume-card';
+import { CVDownloadButton } from '@/components/cv-download-button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { DATA } from '@/data/resume';
@@ -48,6 +49,11 @@ export default function Page() {
           <Markdown className='prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert'>
             {DATA.summary}
           </Markdown>
+        </BlurFade>
+        <BlurFade delay={BLUR_FADE_DELAY * 4.5}>
+          <div className='mt-4'>
+            <CVDownloadButton />
+          </div>
         </BlurFade>
       </section>
       <section id='work'>
