@@ -50,11 +50,11 @@ export default function Page() {
             {DATA.summary}
           </Markdown>
         </BlurFade>
-        <BlurFade delay={BLUR_FADE_DELAY * 4.5}>
+        {/* <BlurFade delay={BLUR_FADE_DELAY * 4.5}>
           <div className='mt-4'>
             <CVDownloadButton />
           </div>
-        </BlurFade>
+        </BlurFade> */}
       </section>
       <section id='work'>
         <div className='flex min-h-0 flex-col gap-y-3'>
