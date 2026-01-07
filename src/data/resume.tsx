@@ -34,7 +34,6 @@ export const DATA = {
     'PostgreSQL',
     'Laravel',
     'Nest.js',
-    'AWS',
   ],
   navbar: [{ href: '/', icon: HomeIcon, label: 'Home' }],
   languages: [
