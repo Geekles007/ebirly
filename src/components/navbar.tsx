@@ -1,3 +1,5 @@
+'use client';
+
 import { Dock, DockIcon } from '@/components/magicui/dock';
 import ModeToggle from '@/components/mode-toggle';
 import { buttonVariants } from '@/components/ui/button';
@@ -10,6 +12,7 @@ import {
 import { DATA } from '@/data/resume';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { DownloadCVButton } from '@/components/download-cv-button';
 
 export default function Navbar() {
   return (
@@ -39,26 +42,52 @@ export default function Navbar() {
         <Separator orientation='vertical' className='h-full' />
         {Object.entries(DATA.contact.social)
           .filter(([_, social]) => social.navbar)
-          .map(([name, social]) => (
-            <DockIcon key={name}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Link
-                    href={social.url}
-                    className={cn(
-                      buttonVariants({ variant: 'ghost', size: 'icon' }),
-                      'size-12'
-                    )}
-                  >
-                    <social.icon className='size-4' />
-                  </Link>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{name}</p>
-                </TooltipContent>
-              </Tooltip>
-            </DockIcon>
-          ))}
+          .map(([name, social]) => {
+            const isCVDownload = name === 'cv';
+            
+            if (isCVDownload) {
+              return (
+                <DockIcon key={name}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <DownloadCVButton
+                        className={cn(
+                          buttonVariants({ variant: 'ghost', size: 'icon' }),
+                          'size-12 cursor-pointer'
+                        )}
+                      >
+                        <social.icon className='size-4' />
+                      </DownloadCVButton>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{social.name}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </DockIcon>
+              );
+            }
+            
+            return (
+              <DockIcon key={name}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Link
+                      href={social.url}
+                      className={cn(
+                        buttonVariants({ variant: 'ghost', size: 'icon' }),
+                        'size-12'
+                      )}
+                    >
+                      <social.icon className='size-4' />
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{name}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </DockIcon>
+            );
+          })}
         <Separator orientation='vertical' className='h-full py-2' />
         <DockIcon>
           <Tooltip>

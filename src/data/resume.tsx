@@ -6,7 +6,7 @@ export const DATA = {
   name: 'Tondji Niat J. Lee',
   initials: 'TNJL',
   url: 'https://ebirly.com',
-  location: 'Cameroon, CM',
+  location: 'France, Ile de France',
   locationLink: 'https://www.google.com/maps/place/douala',
   description:
     'Software Engineer Passionated by Graphic design. I love everything related to creativity.',
@@ -57,7 +57,7 @@ export const DATA = {
   ],
   contact: {
     email: 'tondjilee@gmail.com',
-    tel: '+237652475952',
+    tel: '+33698881671',
     social: {
       GitHub: {
         name: 'GitHub',
@@ -141,6 +141,7 @@ export const DATA = {
       description: (
         <ul>
           <li>Services for LOKIMO AI</li>
+          <li>Complete overhaul of the Lokimo AI SaaS platform.</li>
           <li>
             Analysis, structuring and implementation of new functionalities. -
             Creation of reusable components and modules.
@@ -148,11 +149,31 @@ export const DATA = {
           <li>Maintenance and continuous improvement of the system.</li>
           <li>System redesign and migration from JavaScript to TypeScript.</li>
           <li>Complete redesign of the website.</li>
+          <li>
+            Development of systems and websites like:
+            <ul>
+              <li>
+                <Link href='https://www.emplacement.immo/'>
+                  https://www.emplacement.immo/
+                </Link>
+              </li>
+              <li>
+                <Link href='https://www.lokimo.ai/'>
+                  https://www.lokimo.ai/
+                </Link>
+              </li>
+              <li>
+                <Link href='https://environment-immobilier.macif.fr/'>
+                  https://environment-immobilier.macif.fr/
+                </Link>
+              </li>
+            </ul>
+          </li>
         </ul>
       ),
     },
     {
-      company: 'TSN электро - Nizhny Novgorod, Russia',
+      company: 'TSN electro - Nizhny Novgorod, Russia',
       badges: [],
       href: undefined,
       location: 'Nizhny Novgorod, Russia',
