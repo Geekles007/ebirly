@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Font,
   Link,
+  Image,
 } from '@react-pdf/renderer';
 import { ReactElement } from 'react';
 
@@ -155,11 +156,22 @@ const styles = StyleSheet.create({
     paddingLeft: 14,
     borderLeft: `3px solid ${colors.background.gray}`,
   },
+  experienceHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginBottom: 4,
+  },
+  logo: {
+    width: 24,
+    height: 24,
+    objectFit: 'contain',
+  },
   company: {
     fontSize: 13,
     fontWeight: 700,
     color: colors.text.primary,
-    marginBottom: 4,
+    flex: 1,
   },
   position: {
     fontSize: 11.5,
@@ -263,11 +275,22 @@ const styles = StyleSheet.create({
     paddingLeft: 12,
     borderLeft: `2px solid ${colors.background.gray}`,
   },
+  educationHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 4,
+  },
+  educationLogo: {
+    width: 20,
+    height: 20,
+    objectFit: 'contain',
+  },
   school: {
     fontSize: 11.5,
     fontWeight: 700,
     color: colors.text.primary,
-    marginBottom: 4,
+    flex: 1,
   },
   degree: {
     fontSize: 10.5,
@@ -289,11 +312,22 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     borderBottom: `1px solid ${colors.border.light}`,
   },
+  certificateHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 3,
+  },
+  certificateLogo: {
+    width: 18,
+    height: 18,
+    objectFit: 'contain',
+  },
   certificateTitle: {
     fontSize: 10,
     fontWeight: 700,
     color: colors.text.primary,
-    marginBottom: 3,
+    flex: 1,
   },
   certificateCompany: {
     fontSize: 9,
@@ -380,17 +414,20 @@ interface CVData {
     end?: string;
     location: string;
     description: ReactElement | string;
+    logoUrl?: string;
   }>;
   education: ReadonlyArray<{
     school: string;
     degree: string;
     start: string;
     end: string;
+    logoUrl?: string;
   }>;
   certificates: ReadonlyArray<{
     title: string;
     company: string;
     start: string;
+    logoUrl?: string;
   }>;
   hobbies: ReadonlyArray<{
     name: string;
@@ -574,7 +611,12 @@ export const CVDocument = ({ data }: { data: CVData }) => (
                 );
                 return (
                   <View key={index} style={styles.experienceItem}>
-                    <Text style={styles.company}>{work.company}</Text>
+                    <View style={styles.experienceHeader}>
+                      {work.logoUrl && (
+                        <Image src={work.logoUrl} style={styles.logo} />
+                      )}
+                      <Text style={styles.company}>{work.company}</Text>
+                    </View>
                     <Text style={styles.position}>{work.title}</Text>
                     <Text style={styles.period}>
                       {work.start} - {work.end || 'Present'} • {work.location}
@@ -592,13 +634,18 @@ export const CVDocument = ({ data }: { data: CVData }) => (
                                 ? styles.descriptionSubItem
                                 : styles.descriptionItem
                             }
+                            wrap={false}
                           >
-                            <Text style={isSubItem ? styles.bulletPointSub : styles.bulletPoint}>
+                            <Text
+                              style={
+                                isSubItem
+                                  ? styles.bulletPointSub
+                                  : styles.bulletPoint
+                              }
+                            >
                               {isSubItem ? '◦' : '●'}
                             </Text>
-                            <Text style={styles.listItemText}>
-                              {cleanDesc}
-                            </Text>
+                            <Text style={styles.listItemText}>{cleanDesc}</Text>
                           </View>
                         );
                       })}
@@ -613,7 +660,12 @@ export const CVDocument = ({ data }: { data: CVData }) => (
               <Text style={styles.sectionTitle}>Education</Text>
               {data.education.map((edu, index) => (
                 <View key={index} style={styles.educationItem}>
-                  <Text style={styles.school}>{edu.school}</Text>
+                  <View style={styles.educationHeader}>
+                    {edu.logoUrl && (
+                      <Image src={edu.logoUrl} style={styles.educationLogo} />
+                    )}
+                    <Text style={styles.school}>{edu.school}</Text>
+                  </View>
                   <Text style={styles.degree}>{edu.degree}</Text>
                   <Text style={styles.period}>
                     {edu.start} - {edu.end}
@@ -688,8 +740,14 @@ export const CVDocument = ({ data }: { data: CVData }) => (
               <View
                 key={index}
                 style={[styles.certificateItem, { width: '48%' }]}
+                wrap={false}
               >
-                <Text style={styles.certificateTitle}>{cert.title}</Text>
+                <View style={styles.certificateHeader}>
+                  {cert.logoUrl && (
+                    <Image src={cert.logoUrl} style={styles.certificateLogo} />
+                  )}
+                  <Text style={styles.certificateTitle}>{cert.title}</Text>
+                </View>
                 <Text style={styles.certificateCompany}>{cert.company}</Text>
                 <Text style={styles.certificateYear}>{cert.start}</Text>
               </View>
