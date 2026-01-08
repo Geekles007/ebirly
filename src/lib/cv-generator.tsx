@@ -9,155 +9,269 @@ import {
 } from '@react-pdf/renderer';
 import { ReactElement } from 'react';
 
-// Styles pour le PDF avec un design moderne et épuré
+// Register custom fonts for a professional look
+Font.register({
+  family: 'Open Sans',
+  fonts: [
+    {
+      src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-regular.ttf',
+      fontWeight: 400,
+    },
+    {
+      src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-600.ttf',
+      fontWeight: 600,
+    },
+    {
+      src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-700.ttf',
+      fontWeight: 700,
+    },
+    {
+      src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-italic.ttf',
+      fontStyle: 'italic',
+    },
+  ],
+});
+
+// Modern color palette
+const colors = {
+  primary: '#2563eb', // Modern blue
+  primaryDark: '#1e40af',
+  secondary: '#475569', // Slate gray
+  accent: '#0ea5e9', // Bright cyan
+  text: {
+    primary: '#0f172a', // Almost black
+    secondary: '#475569', // Medium gray
+    light: '#64748b', // Light gray
+  },
+  background: {
+    white: '#ffffff',
+    light: '#f8fafc',
+    gray: '#f1f5f9',
+  },
+  border: {
+    light: '#e2e8f0',
+    medium: '#cbd5e1',
+  },
+};
+
+// Styles pour le PDF avec un design moderne et professionnel
 const styles = StyleSheet.create({
   page: {
-    backgroundColor: '#ffffff',
-    padding: 40,
-    fontFamily: 'Helvetica',
+    backgroundColor: colors.background.white,
+    padding: 0,
+    fontFamily: 'Open Sans',
   },
-  header: {
-    marginBottom: 24,
-    paddingBottom: 16,
-    borderBottom: '3px solid #000000',
+  // Header avec fond coloré
+  headerContainer: {
+    backgroundColor: colors.primary,
+    padding: '35 40',
+    marginBottom: 0,
   },
   name: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    color: '#000000',
-    marginBottom: 6,
+    fontSize: 42,
+    fontWeight: 700,
+    color: colors.background.white,
+    marginBottom: 8,
     letterSpacing: -0.5,
   },
   role: {
-    fontSize: 14,
-    color: '#555',
-    marginBottom: 6,
-    fontWeight: 'normal',
+    fontSize: 16,
+    color: colors.background.light,
+    marginBottom: 8,
+    fontWeight: 400,
+    letterSpacing: 0.3,
   },
   location: {
-    fontSize: 10,
-    color: '#777',
-    marginBottom: 10,
+    fontSize: 11,
+    color: colors.background.light,
+    marginBottom: 14,
+    opacity: 0.9,
   },
   contactInfo: {
     flexDirection: 'row',
-    gap: 16,
-    marginTop: 8,
+    gap: 18,
+    marginTop: 4,
     flexWrap: 'wrap',
   },
   contactItem: {
-    fontSize: 9,
-    color: '#0066cc',
+    fontSize: 10,
+    color: colors.background.white,
     textDecoration: 'none',
+    opacity: 0.95,
+  },
+  // Conteneur principal
+  mainContent: {
+    padding: '0 40 40 40',
+  },
+  // Deux colonnes layout
+  twoColumnLayout: {
+    flexDirection: 'row',
+    gap: 30,
+  },
+  leftColumn: {
+    flex: 1,
+  },
+  rightColumn: {
+    width: 200,
   },
   section: {
+    marginBottom: 22,
+    marginTop: 22,
+  },
+  sectionCompact: {
     marginBottom: 18,
+    marginTop: 18,
   },
   sectionTitle: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#000000',
+    fontSize: 13,
+    fontWeight: 700,
+    color: colors.primary,
+    marginBottom: 14,
+    textTransform: 'uppercase',
+    letterSpacing: 1.2,
+    paddingBottom: 6,
+    borderBottom: `3px solid ${colors.primary}`,
+  },
+  sectionTitleSidebar: {
+    fontSize: 12,
+    fontWeight: 700,
+    color: colors.text.primary,
     marginBottom: 12,
     textTransform: 'uppercase',
     letterSpacing: 1,
-    borderBottom: '2px solid #000000',
-    paddingBottom: 6,
+    paddingBottom: 5,
+    borderBottom: `2px solid ${colors.border.medium}`,
   },
   summary: {
-    fontSize: 10,
-    color: '#333',
-    lineHeight: 1.6,
+    fontSize: 10.5,
+    color: colors.text.secondary,
+    lineHeight: 1.7,
     textAlign: 'justify',
   },
+  // Experience styles avec carte moderne
   experienceItem: {
-    marginBottom: 14,
-    paddingBottom: 10,
-    borderBottom: '1px solid #e8e8e8',
+    marginBottom: 16,
+    paddingBottom: 14,
+    paddingLeft: 14,
+    borderLeft: `3px solid ${colors.background.gray}`,
   },
   company: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: '#000000',
-    marginBottom: 3,
+    fontSize: 13,
+    fontWeight: 700,
+    color: colors.text.primary,
+    marginBottom: 4,
   },
   position: {
-    fontSize: 11,
-    color: '#444',
-    marginBottom: 3,
-    fontStyle: 'italic',
+    fontSize: 11.5,
+    color: colors.primary,
+    marginBottom: 4,
+    fontWeight: 600,
   },
   period: {
-    fontSize: 9,
-    color: '#666',
-    marginBottom: 6,
+    fontSize: 9.5,
+    color: colors.text.light,
+    marginBottom: 8,
+    fontStyle: 'italic',
   },
   description: {
-    fontSize: 9,
-    color: '#444',
-    lineHeight: 1.5,
+    fontSize: 10,
+    color: colors.text.secondary,
+    lineHeight: 1.6,
   },
   descriptionList: {
-    paddingLeft: 10,
-    marginTop: 4,
+    paddingLeft: 0,
+    marginTop: 8,
+    gap: 3,
   },
   descriptionItem: {
-    fontSize: 9,
-    color: '#333',
-    lineHeight: 1.5,
+    fontSize: 9.5,
+    color: colors.text.secondary,
+    lineHeight: 1.7,
     marginBottom: 3,
+    paddingLeft: 12,
+    paddingRight: 8,
+    paddingTop: 4,
+    paddingBottom: 4,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    backgroundColor: colors.background.light,
+    borderRadius: 2,
   },
   descriptionSubItem: {
-    fontSize: 8,
-    color: '#444',
-    lineHeight: 1.4,
-    marginBottom: 2,
-    paddingLeft: 10,
+    fontSize: 9,
+    color: colors.text.light,
+    lineHeight: 1.6,
+    marginBottom: 3,
+    paddingLeft: 24,
+    paddingRight: 8,
+    paddingTop: 3,
+    paddingBottom: 3,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    borderRadius: 2,
   },
+  // Skills avec design moderne
   skillsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 8,
+    gap: 7,
   },
   skill: {
     fontSize: 9,
-    color: '#000000',
-    backgroundColor: '#f0f0f0',
-    padding: '5 10',
-    borderRadius: 3,
-    border: '1px solid #ddd',
+    color: colors.text.primary,
+    backgroundColor: colors.background.gray,
+    padding: '6 12',
+    borderRadius: 4,
+    fontWeight: 600,
   },
+  // Languages avec barre de progression visuelle
   languagesContainer: {
-    flexDirection: 'row',
-    gap: 20,
-    flexWrap: 'wrap',
+    flexDirection: 'column',
+    gap: 10,
   },
   languageItem: {
-    marginBottom: 6,
-    minWidth: 100,
+    marginBottom: 4,
   },
   languageName: {
-    fontSize: 10,
-    fontWeight: 'bold',
-    color: '#000000',
+    fontSize: 10.5,
+    fontWeight: 700,
+    color: colors.text.primary,
+    marginBottom: 4,
   },
   languageLevel: {
     fontSize: 9,
-    color: '#555',
-  },
-  educationItem: {
-    marginBottom: 12,
-    paddingBottom: 8,
-    borderBottom: '1px solid #f0f0f0',
-  },
-  school: {
-    fontSize: 11,
-    fontWeight: 'bold',
-    color: '#000000',
+    color: colors.text.secondary,
     marginBottom: 3,
   },
+  languageBar: {
+    height: 6,
+    backgroundColor: colors.background.gray,
+    borderRadius: 3,
+    overflow: 'hidden',
+  },
+  languageBarFill: {
+    height: 6,
+    backgroundColor: colors.primary,
+    borderRadius: 3,
+  },
+  // Education avec design épuré
+  educationItem: {
+    marginBottom: 14,
+    paddingBottom: 10,
+    paddingLeft: 12,
+    borderLeft: `2px solid ${colors.background.gray}`,
+  },
+  school: {
+    fontSize: 11.5,
+    fontWeight: 700,
+    color: colors.text.primary,
+    marginBottom: 4,
+  },
   degree: {
-    fontSize: 10,
-    color: '#444',
+    fontSize: 10.5,
+    color: colors.text.secondary,
     marginBottom: 3,
   },
   row: {
@@ -165,52 +279,78 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
   },
-  leftColumn: {
-    flex: 1,
-  },
   divider: {
-    borderBottom: '1px solid #e5e5e5',
+    borderBottom: `1px solid ${colors.border.light}`,
     marginVertical: 10,
   },
+  // Certificates avec carte
   certificateItem: {
-    marginBottom: 10,
-    paddingBottom: 6,
-    borderBottom: '1px solid #f5f5f5',
+    marginBottom: 12,
+    paddingBottom: 8,
+    borderBottom: `1px solid ${colors.border.light}`,
   },
   certificateTitle: {
     fontSize: 10,
-    fontWeight: 'bold',
-    color: '#000000',
-    marginBottom: 2,
+    fontWeight: 700,
+    color: colors.text.primary,
+    marginBottom: 3,
   },
   certificateCompany: {
     fontSize: 9,
-    color: '#555',
+    color: colors.text.secondary,
     marginBottom: 2,
   },
   certificateYear: {
-    fontSize: 8,
-    color: '#777',
+    fontSize: 8.5,
+    color: colors.text.light,
+    fontStyle: 'italic',
   },
+  // Hobbies avec icônes
   hobbiesContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 14,
+    flexDirection: 'column',
+    gap: 8,
   },
   hobbyItem: {
-    width: '30%',
-    marginBottom: 10,
+    marginBottom: 6,
+    paddingLeft: 10,
+    borderLeft: `2px solid ${colors.background.gray}`,
   },
   hobbyName: {
     fontSize: 10,
-    fontWeight: 'bold',
-    color: '#000000',
+    fontWeight: 700,
+    color: colors.text.primary,
     marginBottom: 3,
   },
   hobbyDescription: {
+    fontSize: 9,
+    color: colors.text.secondary,
+    lineHeight: 1.5,
+  },
+  // Bullet points personnalisés
+  bulletPoint: {
+    color: colors.primary,
+    fontWeight: 700,
+    marginRight: 10,
+    marginTop: 1,
     fontSize: 8,
-    color: '#555',
-    lineHeight: 1.4,
+    width: 12,
+  },
+  bulletPointSub: {
+    color: colors.accent,
+    fontWeight: 600,
+    marginRight: 10,
+    marginTop: 1,
+    fontSize: 7,
+    width: 12,
+  },
+  listItemText: {
+    flex: 1,
+    paddingTop: 0,
+  },
+  header: {
+    marginBottom: 24,
+    paddingBottom: 16,
+    borderBottom: '3px solid #000000',
   },
 });
 
@@ -356,12 +496,35 @@ const extractTextFromDescription = (
   return [];
 };
 
-// Composant Document PDF
+// Helper function to get language proficiency percentage
+const getLanguageProficiency = (level: string): number => {
+  const levelMap: { [key: string]: number } = {
+    Native: 100,
+    Bilingual: 100,
+    Fluent: 90,
+    Professional: 80,
+    Advanced: 70,
+    Intermediate: 50,
+    Elementary: 30,
+    Beginner: 20,
+  };
+
+  // Try to find matching level (case insensitive)
+  for (const [key, value] of Object.entries(levelMap)) {
+    if (level.toLowerCase().includes(key.toLowerCase())) {
+      return value;
+    }
+  }
+
+  return 50; // Default to intermediate if no match
+};
+
+// Composant Document PDF avec design moderne
 export const CVDocument = ({ data }: { data: CVData }) => (
   <Document>
     <Page size='A4' style={styles.page}>
-      {/* Header */}
-      <View style={styles.header}>
+      {/* Header moderne avec fond coloré */}
+      <View style={styles.headerContainer}>
         <Text style={styles.name}>{data.name}</Text>
         <Text style={styles.role}>{data.description}</Text>
         <Text style={styles.location}>{data.location}</Text>
@@ -390,118 +553,148 @@ export const CVDocument = ({ data }: { data: CVData }) => (
         </View>
       </View>
 
-      {/* Summary */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Profile</Text>
-        <Text style={styles.summary}>{data.summary}</Text>
-      </View>
+      {/* Contenu principal */}
+      <View style={styles.mainContent}>
+        {/* Summary */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Professional Profile</Text>
+          <Text style={styles.summary}>{data.summary}</Text>
+        </View>
 
-      {/* Work Experience */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Work Experience</Text>
-        {data.work.map((work, index) => {
-          const descriptions = extractTextFromDescription(work.description);
-          return (
-            <View key={index} style={styles.experienceItem}>
-              <Text style={styles.company}>{work.company}</Text>
-              <Text style={styles.position}>{work.title}</Text>
-              <Text style={styles.period}>
-                {work.start} - {work.end || 'Present'} • {work.location}
-              </Text>
-              <View style={styles.descriptionList}>
-                {descriptions.map((desc, idx) => {
-                  // Détection des sous-éléments (commencent par des espaces)
-                  const isSubItem = desc.startsWith('  ');
-                  const cleanDesc = desc.trim();
-
-                  return (
-                    <Text
-                      key={idx}
-                      style={
-                        isSubItem
-                          ? styles.descriptionSubItem
-                          : styles.descriptionItem
-                      }
-                    >
-                      {isSubItem ? '  ◦ ' : '• '}
-                      {cleanDesc}
+        {/* Layout deux colonnes pour le contenu principal */}
+        <View style={styles.twoColumnLayout}>
+          {/* Colonne principale (gauche) */}
+          <View style={styles.leftColumn}>
+            {/* Work Experience */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Work Experience</Text>
+              {data.work.map((work, index) => {
+                const descriptions = extractTextFromDescription(
+                  work.description
+                );
+                return (
+                  <View key={index} style={styles.experienceItem}>
+                    <Text style={styles.company}>{work.company}</Text>
+                    <Text style={styles.position}>{work.title}</Text>
+                    <Text style={styles.period}>
+                      {work.start} - {work.end || 'Present'} • {work.location}
                     </Text>
+                    <View style={styles.descriptionList}>
+                      {descriptions.map((desc, idx) => {
+                        const isSubItem = desc.startsWith('  ');
+                        const cleanDesc = desc.trim();
+
+                        return (
+                          <View
+                            key={idx}
+                            style={
+                              isSubItem
+                                ? styles.descriptionSubItem
+                                : styles.descriptionItem
+                            }
+                          >
+                            <Text style={isSubItem ? styles.bulletPointSub : styles.bulletPoint}>
+                              {isSubItem ? '◦' : '●'}
+                            </Text>
+                            <Text style={styles.listItemText}>
+                              {cleanDesc}
+                            </Text>
+                          </View>
+                        );
+                      })}
+                    </View>
+                  </View>
+                );
+              })}
+            </View>
+
+            {/* Education */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Education</Text>
+              {data.education.map((edu, index) => (
+                <View key={index} style={styles.educationItem}>
+                  <Text style={styles.school}>{edu.school}</Text>
+                  <Text style={styles.degree}>{edu.degree}</Text>
+                  <Text style={styles.period}>
+                    {edu.start} - {edu.end}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          </View>
+
+          {/* Colonne sidebar (droite) */}
+          <View style={styles.rightColumn}>
+            {/* Skills */}
+            <View style={styles.sectionCompact}>
+              <Text style={styles.sectionTitleSidebar}>Skills</Text>
+              <View style={styles.skillsContainer}>
+                {data.skills.map((skill, index) => (
+                  <Text key={index} style={styles.skill}>
+                    {skill}
+                  </Text>
+                ))}
+              </View>
+            </View>
+
+            {/* Languages avec barres de progression */}
+            <View style={styles.sectionCompact}>
+              <Text style={styles.sectionTitleSidebar}>Languages</Text>
+              <View style={styles.languagesContainer}>
+                {data.languages.map((lang, index) => {
+                  const proficiency = getLanguageProficiency(lang.level);
+                  return (
+                    <View key={index} style={styles.languageItem}>
+                      <Text style={styles.languageName}>{lang.name}</Text>
+                      <Text style={styles.languageLevel}>{lang.level}</Text>
+                      <View style={styles.languageBar}>
+                        <View
+                          style={[
+                            styles.languageBarFill,
+                            { width: `${proficiency}%` },
+                          ]}
+                        />
+                      </View>
+                    </View>
                   );
                 })}
               </View>
             </View>
-          );
-        })}
-      </View>
 
-      {/* Education */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Education</Text>
-        {data.education.map((edu, index) => (
-          <View key={index} style={styles.educationItem}>
-            <Text style={styles.school}>{edu.school}</Text>
-            <Text style={styles.degree}>{edu.degree}</Text>
-            <Text style={styles.period}>
-              {edu.start} - {edu.end}
-            </Text>
+            {/* Hobbies */}
+            <View style={styles.sectionCompact}>
+              <Text style={styles.sectionTitleSidebar}>Interests</Text>
+              <View style={styles.hobbiesContainer}>
+                {data.hobbies.map((hobby, index) => (
+                  <View key={index} style={styles.hobbyItem}>
+                    <Text style={styles.hobbyName}>{hobby.name}</Text>
+                    {hobby.description && (
+                      <Text style={styles.hobbyDescription}>
+                        {hobby.description}
+                      </Text>
+                    )}
+                  </View>
+                ))}
+              </View>
+            </View>
           </View>
-        ))}
-      </View>
-
-      {/* Certificates */}
-      <View style={styles.section} break>
-        <Text style={styles.sectionTitle}>Certifications</Text>
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
-          {data.certificates.map((cert, index) => (
-            <View
-              key={index}
-              style={[styles.certificateItem, { width: '48%' }]}
-            >
-              <Text style={styles.certificateTitle}>{cert.title}</Text>
-              <Text style={styles.certificateCompany}>{cert.company}</Text>
-              <Text style={styles.certificateYear}>{cert.start}</Text>
-            </View>
-          ))}
         </View>
-      </View>
 
-      {/* Skills */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Skills</Text>
-        <View style={styles.skillsContainer}>
-          {data.skills.map((skill, index) => (
-            <Text key={index} style={styles.skill}>
-              {skill}
-            </Text>
-          ))}
-        </View>
-      </View>
-
-      {/* Languages */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Languages</Text>
-        <View style={styles.languagesContainer}>
-          {data.languages.map((lang, index) => (
-            <View key={index} style={styles.languageItem}>
-              <Text style={styles.languageName}>{lang.name}</Text>
-              <Text style={styles.languageLevel}>{lang.level}</Text>
-            </View>
-          ))}
-        </View>
-      </View>
-
-      {/* Hobbies */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Hobbies & Interests</Text>
-        <View style={styles.hobbiesContainer}>
-          {data.hobbies.map((hobby, index) => (
-            <View key={index} style={styles.hobbyItem}>
-              <Text style={styles.hobbyName}>{hobby.name}</Text>
-              {hobby.description && (
-                <Text style={styles.hobbyDescription}>{hobby.description}</Text>
-              )}
-            </View>
-          ))}
+        {/* Certificates en pleine largeur */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Certifications</Text>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
+            {data.certificates.map((cert, index) => (
+              <View
+                key={index}
+                style={[styles.certificateItem, { width: '48%' }]}
+              >
+                <Text style={styles.certificateTitle}>{cert.title}</Text>
+                <Text style={styles.certificateCompany}>{cert.company}</Text>
+                <Text style={styles.certificateYear}>{cert.start}</Text>
+              </View>
+            ))}
+          </View>
         </View>
       </View>
     </Page>
