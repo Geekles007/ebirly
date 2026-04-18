@@ -363,7 +363,7 @@ export const DATA = {
       links: [
         {
           type: 'Website',
-          href: 'https://ibirdagency.com/',
+          href: 'https://ibirdagency.tnjl.me/',
           icon: <Icons.globe className='size-3' />,
         },
         {

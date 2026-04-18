@@ -1,79 +1,61 @@
-import Navbar from '@/components/navbar';
-import { ThemeProvider } from '@/components/theme-provider';
-import { TooltipProvider } from '@/components/ui/tooltip';
-import { DATA } from '@/data/resume';
-import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
-import { Poppins } from 'next/font/google';
+import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
+import Nav from '@/components/nav';
+import CursorFx from '@/components/cursor-fx';
+import { LangProvider } from '@/contexts/lang';
 import './globals.css';
-import dynamic from 'next/dynamic';
 
-const CustomCursor = dynamic(() => import('@/components/custom-cursor'), {
-  ssr: false,
-});
-
-const fontSans = Poppins({
+const fontSans = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['300', '400', '500', '600', '700'],
   variable: '--font-sans',
 });
 
+const fontMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600'],
+  variable: '--font-mono',
+});
+
 export const metadata: Metadata = {
-  metadataBase: new URL(DATA.url),
+  metadataBase: new URL('https://ebirly.com'),
   title: {
-    default: DATA.name,
-    template: `%s | ${DATA.name}`,
+    default: 'Tondji Lee — Engineer & Designer',
+    template: '%s | Tondji Lee',
   },
-  description: DATA.description,
+  description:
+    'Software Engineer & Graphic Designer based in Paris. I build fast, precise interfaces with React, Next.js, and a strong eye for design.',
   openGraph: {
-    title: `${DATA.name}`,
-    description: DATA.description,
-    url: DATA.url,
-    siteName: `${DATA.name}`,
+    title: 'Tondji Lee — Engineer & Designer',
+    description:
+      'Software Engineer & Graphic Designer based in Paris. I build fast, precise interfaces with React, Next.js, and a strong eye for design.',
+    url: 'https://ebirly.com',
+    siteName: 'Tondji Lee',
     locale: 'en_US',
     type: 'website',
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  twitter: {
-    title: `${DATA.name}`,
-    card: 'summary_large_image',
-  },
-  verification: {
-    google: '',
-    yandex: '',
-  },
+  robots: { index: true, follow: true },
+  twitter: { title: 'Tondji Lee', card: 'summary_large_image' },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='en' suppressHydrationWarning>
-      <body
-        className={cn(
-          'mx-auto min-h-screen max-w-2xl bg-background px-6 py-12 font-sans antialiased sm:py-24',
-          fontSans.variable
-        )}
-      >
-        <ThemeProvider attribute='class' defaultTheme='light'>
-          <TooltipProvider delayDuration={0}>
-            {children}
-            <Navbar />
-            <CustomCursor />
-          </TooltipProvider>
-        </ThemeProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${fontSans.variable} ${fontMono.variable}`}>
+        {/* Decorative fixed layers */}
+        <div className="grid-bg" aria-hidden="true" />
+        <div className="noise"   aria-hidden="true" />
+        <div className="scanline" aria-hidden="true" />
+
+        {/* Custom cursor */}
+        <div id="cursor-dot"  className="cursor-dot"  aria-hidden="true" />
+        <div id="cursor-ring" className="cursor-ring" aria-hidden="true" />
+        <CursorFx />
+
+        <LangProvider>
+          <Nav />
+          <main id="top">{children}</main>
+        </LangProvider>
       </body>
     </html>
   );
