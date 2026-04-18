@@ -6,7 +6,7 @@ export const DATA = {
   name: 'Tondji Niat J. Lee',
   initials: 'TNJL',
   url: 'https://ebirly.com',
-  location: 'Cameroon, CM',
+  location: 'France, Ile de France',
   locationLink: 'https://www.google.com/maps/place/douala',
   description:
     'Software Engineer Passionated by Graphic design. I love everything related to creativity.',
@@ -21,6 +21,9 @@ export const DATA = {
     'Angular 4+',
     'Microfrontends',
     'Git',
+    'Java',
+    'Spring Boot',
+    'Kotlin',
     'Affinity Designer',
     'Flutter',
     'Framer Motion',
@@ -31,7 +34,6 @@ export const DATA = {
     'PostgreSQL',
     'Laravel',
     'Nest.js',
-    'AWS'
   ],
   navbar: [{ href: '/', icon: HomeIcon, label: 'Home' }],
   languages: [
@@ -54,7 +56,7 @@ export const DATA = {
   ],
   contact: {
     email: 'tondjilee@gmail.com',
-    tel: '+237652475952',
+    tel: '+33698881671',
     social: {
       GitHub: {
         name: 'GitHub',
@@ -135,16 +137,42 @@ export const DATA = {
       logoUrl: '/logo-black.svg',
       start: 'Febuary 2023',
       end: 'Now',
-      description: <ul>
-        <li>Services for LOKIMO AI</li>
-        <li>Analysis, structuring and implementation of new functionalities. - Creation of reusable components and modules.</li>
-        <li>Maintenance and continuous improvement of the system.</li>
-        <li>System redesign and migration from JavaScript to TypeScript.</li>
-        <li>Complete redesign of the website.</li>
-      </ul>
+      description: (
+        <ul>
+          <li>Services for LOKIMO AI</li>
+          <li>Complete overhaul of the Lokimo AI SaaS platform.</li>
+          <li>
+            Analysis, structuring and implementation of new functionalities. -
+            Creation of reusable components and modules.
+          </li>
+          <li>Maintenance and continuous improvement of the system.</li>
+          <li>System redesign and migration from JavaScript to TypeScript.</li>
+          <li>Complete redesign of the website.</li>
+          <li>
+            Development of systems and websites like:
+            <ul>
+              <li>
+                <Link href='https://www.emplacement.immo/'>
+                  https://www.emplacement.immo/
+                </Link>
+              </li>
+              <li>
+                <Link href='https://www.lokimo.ai/'>
+                  https://www.lokimo.ai/
+                </Link>
+              </li>
+              <li>
+                <Link href='https://environment-immobilier.macif.fr/'>
+                  https://environment-immobilier.macif.fr/
+                </Link>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      ),
     },
     {
-      company: 'TSN электро - Nizhny Novgorod, Russia',
+      company: 'TSN electro - Nizhny Novgorod, Russia',
       badges: [],
       href: undefined,
       location: 'Nizhny Novgorod, Russia',
@@ -152,14 +180,16 @@ export const DATA = {
       logoUrl: '/no-logo.png',
       start: 'December 2020',
       end: 'Febuary 2022',
-      description: <ul>
-        <li>{`Gestion d'une équipe de 3 développeurs.`}</li>
-        <li>Gestion de projets en méthode Agile SCRUM.</li>
-        <li>Analyse et optimisation des systèmes existants.</li>
-        <li>{`Conception et implémentation d'une architecture microfrontend. - Développement d'un ERP.`}</li>
-        <li>Définition de stratégies de déploiement.</li>
-        <li>Formation des collaborateurs.</li>
-      </ul>
+      description: (
+        <ul>
+          <li>{`Gestion d'une équipe de 3 développeurs.`}</li>
+          <li>Gestion de projets en méthode Agile SCRUM.</li>
+          <li>Analyse et optimisation des systèmes existants.</li>
+          <li>{`Conception et implémentation d'une architecture microfrontend. - Développement d'un ERP.`}</li>
+          <li>Définition de stratégies de déploiement.</li>
+          <li>Formation des collaborateurs.</li>
+        </ul>
+      ),
     },
     {
       company: 'Web mechanica - Nizhny Novgorod, Russia',
@@ -170,11 +200,22 @@ export const DATA = {
       logoUrl: '/no-logo.png',
       start: 'May 2020',
       end: 'December 2020',
-      description: <div>
-        <span>Development of website (fromscratch) for company around the world (Bitrix) System maintenances.</span> <br/>
-        <Link href={'https://www.vertex-awp.ru'} target={'_blank'}>(https://www.vertex-awp.ru)</Link> <br/>
-        <Link href={'https://www.elac.study'} target={'_blank'}>(https://www.elac.study)</Link>
-      </div>,
+      description: (
+        <div>
+          <span>
+            Development of website (fromscratch) for company around the world
+            (Bitrix) System maintenances.
+          </span>{' '}
+          <br />
+          <Link href={'https://www.vertex-awp.ru'} target={'_blank'}>
+            (https://www.vertex-awp.ru)
+          </Link>{' '}
+          <br />
+          <Link href={'https://www.elac.study'} target={'_blank'}>
+            (https://www.elac.study)
+          </Link>
+        </div>
+      ),
     },
     {
       company: 'Freelance',
@@ -185,15 +226,17 @@ export const DATA = {
       logoUrl: '/no-logo.png',
       start: 'January 2016',
       end: 'August 2019',
-      description: <ul>
-        <li>Development of a cinema ticket booking application</li>
-        <li>Development mobile application for money transaction</li>
-        <li>Development of an interactive map</li>
-        <li>Development of an audio streaming api</li>
-        <li>Development of an article writing system</li>
-        <li>Clinic management system</li>
-        <li>Development of an application to book travel tickets</li>
-      </ul>
+      description: (
+        <ul>
+          <li>Development of a cinema ticket booking application</li>
+          <li>Development mobile application for money transaction</li>
+          <li>Development of an interactive map</li>
+          <li>Development of an audio streaming api</li>
+          <li>Development of an article writing system</li>
+          <li>Clinic management system</li>
+          <li>Development of an application to book travel tickets</li>
+        </ul>
+      ),
     },
     {
       company: 'Kumity - Germany',
@@ -247,7 +290,7 @@ export const DATA = {
     {
       company: 'Udemy',
       href: 'https://www.udemy.com/certificate/UC-f42d1e15-1e1e-4cc5-b9d6-c5d0a41e016c/',
-      title: 'NestJS: The complete developer\'s guide',
+      title: "NestJS: The complete developer's guide",
       logoUrl: '/udemy.png',
       start: 'August 2025',
     },
