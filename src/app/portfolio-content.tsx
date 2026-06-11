@@ -146,9 +146,89 @@ const MARQUEE_ITEMS = [
   'NestJS',
 ];
 
+/* ─── Builds: products model ─────────────────────── */
+type Product = {
+  name: string;
+  logo: string;
+  version: string;
+  tags: string[];
+  badges: { t: string; dim?: boolean }[];
+  desc: string;
+  links: { label: string; href: string }[];
+};
+
 /* ─── Component ──────────────────────────────────── */
 export default function PortfolioContent() {
   const { t } = useLang();
+
+  const OSS_PRODUCTS: Product[] = [
+    {
+      name: 'Hexagone UI',
+      logo: '/hexagone-ui.svg',
+      version: 'v1.5.0',
+      tags: ['Registry', 'shadcn CLI', 'MapLibre', 'IGN · Géoplateforme'],
+      badges: [{ t: 'MIT' }, { t: t.builds.pro, dim: true }],
+      desc: t.builds.hexagone,
+      links: [{ label: t.builds.cta, href: 'https://github.com/Geekles007/hexagone-ui' },
+        { label: t.builds.site, href: 'https://hexagoneui.tnjl.me' },],
+    },
+    {
+      name: 'Maattitude',
+      logo: '/maattitude.png',
+      version: 'v1.0.1',
+      tags: ['Flutter', 'iOS', 'Supabase'],
+      badges: [{ t: 'iOS' }],
+      desc: t.builds.maattitude,
+      links: [
+        { label: 'App Store', href: 'https://apps.apple.com/app/6771473679' },
+        { label: t.builds.site, href: 'https://maat.metchera.com' },
+      ],
+    },
+  ];
+
+  const PAID_PRODUCTS: Product[] = [
+  ];
+
+  const renderProduct = (p: Product) => (
+    <article key={p.name} className='product-row'>
+      <span className='pr-logo'>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={p.logo} alt={`${p.name} logo`} width={48} height={48} />
+      </span>
+      <div className='pr-body'>
+        <div className='pr-name-row'>
+          <h4 className='pr-name'>{p.name}</h4>
+          {p.badges.map((b) => (
+            <span key={b.t} className={`pr-badge${b.dim ? ' pro' : ''}`}>
+              {b.t}
+            </span>
+          ))}
+        </div>
+        <p className='pr-desc'>{p.desc}</p>
+        <div className='pr-tags'>
+          {p.tags.map((tag) => (
+            <span key={tag}>{tag}</span>
+          ))}
+        </div>
+      </div>
+      <div className='pr-meta'>
+        <span className='pr-version'>{p.version}</span>
+        <div className='pr-links'>
+          {p.links.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='pr-link'
+            >
+              {l.label} <span className='pr-arrow'>↗</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </article>
+  );
 
   const marqueeRow = MARQUEE_ITEMS.map((item, i) => (
     <span key={i}>
@@ -348,6 +428,40 @@ export default function PortfolioContent() {
                 <span className='p-thumb' data-label={p.th} />
               </a>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Products & Open source ── */}
+      <section id='builds' className='section-anchor'>
+        <div className='wrap'>
+          <div className='sec-head'>
+            <span className='sec-label'>{t.builds.label}</span>
+            <span className='chip'>{t.builds.chip}</span>
+          </div>
+          <div className='builds-head'>
+            <h2 className='sec-title'>{t.builds.title}</h2>
+            <p className='hero-desc'>{t.builds.intro}</p>
+          </div>
+
+          {/* Open source */}
+          <div className='builds-sub'>
+            <span className='dot' />
+            <h3>{t.builds.oss}</h3>
+            <span className='chip'>{t.builds.oss_chip}</span>
+          </div>
+          <div className='product-list'>{OSS_PRODUCTS.map(renderProduct)}</div>
+
+          {/* Paid products */}
+          <div className='builds-sub'>
+            <span className='dot' />
+            <h3>{t.builds.paid}</h3>
+            <span className='chip'>{t.builds.paid_chip}</span>
+          </div>
+          <div className='product-list'>{PAID_PRODUCTS.map(renderProduct)}</div>
+          <div className='product-soon'>
+            <span className='ps-icon'>✦</span>
+            <span>{t.builds.soon}</span>
           </div>
         </div>
       </section>
