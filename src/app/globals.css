@@ -737,6 +737,103 @@ section {
 }
 .product-soon .ps-icon { color: var(--accent); font-size: 16px; }
 
+/* ─── Accessibility spotlight ──────────────────────── */
+.a11y-section { position: relative; overflow: hidden; }
+.a11y-section::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  right: -5%;
+  width: 540px;
+  height: 540px;
+  background: radial-gradient(circle, var(--accent-dim), transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+.a11y-section .sec-label { color: var(--accent); }
+
+.a11y-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 56px;
+  align-items: start;
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 940px) { .a11y-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+.a11y-lead .sec-title { margin: 0 0 28px; }
+
+.a11y-quote {
+  margin: 0 0 28px;
+  padding: 4px 0 4px 22px;
+  border-left: 2px solid var(--accent);
+  font-size: clamp(17px, 1.7vw, 21px);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  font-style: normal;
+}
+
+.a11y-standards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 28px 0 32px;
+}
+.a11y-standards span {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 6px 10px;
+  line-height: 1;
+}
+
+.a11y-cta { width: fit-content; }
+.a11y-cta .pr-arrow { color: inherit; }
+
+.a11y-pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+@media (max-width: 540px) { .a11y-pillars { grid-template-columns: 1fr; } }
+
+.a11y-pillar {
+  background: var(--bg);
+  padding: 24px;
+  transition: background 0.25s;
+}
+.a11y-pillar:hover { background: var(--bg-2); }
+.a11y-pillar:hover .ap-idx { color: var(--accent); }
+.ap-idx {
+  display: block;
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--fg-faint);
+  margin-bottom: 18px;
+  transition: color 0.25s;
+}
+.a11y-pillar h4 {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0 0 10px;
+  color: var(--fg);
+}
+.a11y-pillar p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--fg-dim);
+}
+
 /* ─── Experience ───────────────────────────────────── */
 .exp-grid {
   display: grid;

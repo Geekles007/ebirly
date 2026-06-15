@@ -22,6 +22,12 @@ export type Dict = {
   };
   stack:   { label: string; chip: string; title: string };
   work:    { label: string; chip: string; title: string };
+  a11y: {
+    label: string; chip: string; title: string;
+    quote: string; intro: string; cta: string;
+    standards: string[];
+    pillars: Array<{ t: string; d: string }>;
+  };
   builds: {
     label: string; chip: string; title: string; intro: string;
     oss: string; oss_chip: string; paid: string; paid_chip: string; soon: string;
@@ -45,6 +51,7 @@ const en: Dict = {
     { n: '01', l: 'About',       h: '#about'     },
     { n: '02', l: 'Stack',       h: '#stack'     },
     { n: '03', l: 'Work',        h: '#work'      },
+    { n: '★',  l: 'A11y',        h: '#a11y'      },
     { n: '04', l: 'Builds',      h: '#builds'    },
     { n: '05', l: 'Experience',  h: '#exp'       },
     { n: '06', l: 'Education',   h: '#education' },
@@ -87,8 +94,23 @@ const en: Dict = {
       ['Status', 'Open to work'],
     ],
   },
-  stack:   { label: '02 — Stack',             chip: '17 technologies · updated 04.2026', title: 'Tools & playground.' },
+  stack:   { label: '02 — Stack',             chip: '18 technologies · updated 04.2026', title: 'Tools & playground.' },
   work:    { label: '03 — Selected projects',  chip: '2022 — 2026',                       title: 'Recent work.' },
+  a11y: {
+    label:    '★ Spotlight — Accessibility',
+    chip:     'WCAG 2.1 AA · RGAA',
+    title:    'Accessible. For real.',
+    quote:    "On Macif's real-estate platform, one of my testers was blind. The mission: let him browse, understand and act without the slightest friction. The day he validated every single flow with his screen reader, accessibility stopped being a constraint — it became a point of pride.",
+    intro:    'I build interfaces everyone can use — by keyboard, by screen reader, in high contrast. Not a checkbox bolted on at the end, but a requirement baked in from the first line of code: semantic HTML, precise ARIA, controlled focus and compliant contrast.',
+    cta:      'View the Macif project',
+    standards: ['WCAG 2.1 AA', 'RGAA 4', 'ARIA', 'NVDA · VoiceOver · JAWS', 'Keyboard-first', 'Semantic HTML'],
+    pillars: [
+      { t: 'Tested by real users',     d: 'Validated in real conditions by a blind tester — iterated until full satisfaction on every flow, not a lab simulation.' },
+      { t: 'Screen-reader ready',      d: 'Semantic landmarks, ARIA labels and live announcements crafted for NVDA, VoiceOver and JAWS.' },
+      { t: '100% keyboard navigable',  d: 'Logical tab order, always-visible focus and zero focus traps — the whole product works without a mouse.' },
+      { t: 'Contrast & legibility',    d: 'AA-compliant contrast ratios, fluid type and generous hit areas designed for low-vision users.' },
+    ],
+  },
   builds: {
     label:     '04 — Products & Open source',
     chip:      '2 shipped · more soon',
@@ -146,6 +168,7 @@ const fr: Dict = {
     { n: '01', l: 'À propos',    h: '#about'     },
     { n: '02', l: 'Stack',       h: '#stack'     },
     { n: '03', l: 'Projets',     h: '#work'      },
+    { n: '★',  l: 'A11y',        h: '#a11y'      },
     { n: '04', l: 'Produits',    h: '#builds'    },
     { n: '05', l: 'Parcours',    h: '#exp'       },
     { n: '06', l: 'Formation',   h: '#education' },
@@ -188,8 +211,23 @@ const fr: Dict = {
       ['Statut',  'Disponible'],
     ],
   },
-  stack:   { label: '02 — Stack technique',      chip: '17 technologies · màj 04.2026', title: 'Outils & terrain de jeu.' },
+  stack:   { label: '02 — Stack technique',      chip: '18 technologies · màj 04.2026', title: 'Outils & terrain de jeu.' },
   work:    { label: '03 — Projets sélectionnés',  chip: '2022 — 2026',                   title: 'Travaux récents.' },
+  a11y: {
+    label:    '★ Focus — Accessibilité',
+    chip:     'WCAG 2.1 AA · RGAA',
+    title:    'Accessible. Pour de vrai.',
+    quote:    "Sur la plateforme immobilière de la MACIF, l'un de mes testeurs était aveugle. La mission : qu'il navigue, comprenne et agisse sans la moindre friction. Le jour où il a validé chaque parcours au lecteur d'écran, l'accessibilité a cessé d'être une contrainte — elle est devenue une fierté.",
+    intro:    "Je conçois des interfaces utilisables par tout le monde — au clavier, au lecteur d'écran, en contraste élevé. Pas une case à cocher en fin de projet, mais une exigence intégrée dès la première ligne de code : HTML sémantique, ARIA juste, focus maîtrisé et contrastes conformes.",
+    cta:      'Voir le projet MACIF',
+    standards: ['WCAG 2.1 AA', 'RGAA 4', 'ARIA', 'NVDA · VoiceOver · JAWS', 'Clavier d\'abord', 'HTML sémantique'],
+    pillars: [
+      { t: 'Testé par de vrais utilisateurs', d: 'Validé en conditions réelles par un testeur aveugle — itéré jusqu\'à une satisfaction totale sur chaque parcours, loin d\'une simulation en labo.' },
+      { t: 'Compatible lecteurs d\'écran',     d: 'Repères sémantiques, libellés ARIA et annonces dynamiques pensés pour NVDA, VoiceOver et JAWS.' },
+      { t: '100 % navigable au clavier',       d: 'Ordre de tabulation logique, focus toujours visible et zéro piège au focus — tout le produit fonctionne sans souris.' },
+      { t: 'Contrastes & lisibilité',          d: 'Ratios de contraste conformes AA, typographie fluide et zones de clic généreuses pensées pour la basse vision.' },
+    ],
+  },
   builds: {
     label:     '04 — Produits & Open source',
     chip:      '2 publiés · bientôt plus',
@@ -247,6 +285,7 @@ const ru: Dict = {
     { n: '01', l: 'О себе',        h: '#about'     },
     { n: '02', l: 'Стек',          h: '#stack'     },
     { n: '03', l: 'Проекты',       h: '#work'      },
+    { n: '★',  l: 'A11y',          h: '#a11y'      },
     { n: '04', l: 'Продукты',      h: '#builds'    },
     { n: '05', l: 'Опыт',          h: '#exp'       },
     { n: '06', l: 'Образование',   h: '#education' },
@@ -289,8 +328,23 @@ const ru: Dict = {
       ['Статус',    'Открыт к работе'],
     ],
   },
-  stack:   { label: '02 — Стек',               chip: '17 технологий · обновлено 04.2026', title: 'Инструменты и площадка.' },
+  stack:   { label: '02 — Стек',               chip: '18 технологий · обновлено 04.2026', title: 'Инструменты и площадка.' },
   work:    { label: '03 — Избранные проекты',   chip: '2022 — 2026',                        title: 'Недавние работы.' },
+  a11y: {
+    label:    '★ В фокусе — Доступность',
+    chip:     'WCAG 2.1 AA · RGAA',
+    title:    'Доступно. По-настоящему.',
+    quote:    'На платформе недвижимости MACIF один из тестировщиков был незрячим. Задача — чтобы он перемещался, понимал и действовал без малейших затруднений. В день, когда он проверил каждый сценарий с экранным диктором, доступность перестала быть ограничением — и стала поводом для гордости.',
+    intro:    'Я создаю интерфейсы, которыми может пользоваться каждый — с клавиатуры, с экранным диктором, в высоком контрасте. Не галочка в конце проекта, а требование с первой строки кода: семантический HTML, точный ARIA, управляемый фокус и соответствующий контраст.',
+    cta:      'Открыть проект MACIF',
+    standards: ['WCAG 2.1 AA', 'RGAA 4', 'ARIA', 'NVDA · VoiceOver · JAWS', 'Клавиатура прежде всего', 'Семантика HTML'],
+    pillars: [
+      { t: 'Проверено реальными людьми',     d: 'Протестировано в реальных условиях незрячим тестировщиком — доработано до полного удовлетворения на каждом сценарии, а не в лаборатории.' },
+      { t: 'Готово к экранным дикторам',     d: 'Семантические ориентиры, ARIA-метки и динамические объявления для NVDA, VoiceOver и JAWS.' },
+      { t: '100% навигация с клавиатуры',    d: 'Логичный порядок табуляции, всегда видимый фокус и отсутствие ловушек фокуса — продукт работает без мыши.' },
+      { t: 'Контраст и читаемость',          d: 'Контраст по уровню AA, плавная типографика и крупные зоны нажатия для слабовидящих.' },
+    ],
+  },
   builds: {
     label:     '04 — Продукты и Open source',
     chip:      '2 выпущено · скоро ещё',

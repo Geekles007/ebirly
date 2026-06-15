@@ -5,6 +5,7 @@ import { useLang } from '@/contexts/lang';
 
 /* ─── Static data (same in all languages) ────────── */
 const STACK = [
+  { n: 'Accessibility', m: 'WCAG 2.1 AA · RGAA · a11y', l: 0.97, s: 'span-12' },
   { n: 'React', m: 'Library · Server & Client', l: 0.95, s: 'span-4' },
   { n: 'Next.js', m: 'Framework · App Router', l: 0.92, s: 'span-4' },
   { n: 'TypeScript', m: 'Language · Strict', l: 0.9, s: 'span-4' },
@@ -41,9 +42,9 @@ const PROJECTS = [
   },
   {
     t: 'Environnement Macif',
-    tg: ['Next.js', 'TypeScript', 'GSAP'],
+    tg: ['Next.js', 'TypeScript', 'WCAG 2.1 AA'],
     y: '2023',
-    th: 'Real estate · Macif.fr',
+    th: 'Real estate · Macif.fr · A11y',
     h: 'https://environnement-immobilier.macif.fr/',
   },
   {
@@ -128,6 +129,8 @@ const LINKS = [
 ];
 
 const MARQUEE_ITEMS = [
+  'Accessibility (a11y)',
+  'WCAG · RGAA',
   'React',
   'Next.js',
   'TypeScript',
@@ -438,6 +441,47 @@ export default function PortfolioContent() {
                 <span className='p-thumb' data-label={p.th} />
               </a>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Accessibility spotlight ── */}
+      <section id='a11y' className='section-anchor a11y-section'>
+        <div className='wrap'>
+          <div className='sec-head'>
+            <span className='sec-label'>{t.a11y.label}</span>
+            <span className='chip'>{t.a11y.chip}</span>
+          </div>
+          <div className='a11y-grid'>
+            <div className='a11y-lead'>
+              <h2 className='sec-title'>{t.a11y.title}</h2>
+              <blockquote className='a11y-quote'>{t.a11y.quote}</blockquote>
+              <p className='hero-desc'>{t.a11y.intro}</p>
+              <div className='a11y-standards'>
+                {t.a11y.standards.map((s) => (
+                  <span key={s}>{s}</span>
+                ))}
+              </div>
+              <a
+                className='btn primary a11y-cta'
+                href='https://environnement-immobilier.macif.fr/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                {t.a11y.cta} <span className='pr-arrow'>↗</span>
+              </a>
+            </div>
+            <div className='a11y-pillars'>
+              {t.a11y.pillars.map((p, i) => (
+                <div className='a11y-pillar' key={i}>
+                  <span className='ap-idx'>
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <h4>{p.t}</h4>
+                  <p>{p.d}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
