@@ -176,7 +176,7 @@ export default function PortfolioContent() {
       name: 'Liasse',
       logo: '/liasse.svg',
       version: 'v0.3.0',
-      tags: ['Office-as-code', 'XLSX · PPTX · DOCX · PDF', 'Factur-X EN 16931', 'shadcn CLI'],
+      tags: ['Office-as-code', 'XLSX · PPTX · DOCX · PDF', 'Factur-X EN 16931', 'liasse CLI'],
       badges: [{ t: 'MIT' }, { t: t.builds.pro, dim: true }],
       desc: t.builds.liasse,
       links: [{ label: t.builds.cta, href: 'https://github.com/Geekles007/liasse' },
