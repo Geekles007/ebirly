@@ -26,7 +26,7 @@ export type Dict = {
     label: string; chip: string; title: string; intro: string;
     oss: string; oss_chip: string; paid: string; paid_chip: string; soon: string;
     open: string; pro: string; cta: string; site: string;
-    hexagone: string; maattitude: string;
+    hexagone: string; liasse: string; maattitude: string;
   };
   exp:     { label: string; chip: string; title: string; side: string; items: WorkItem[] };
   edu:     { label: string; chip: string; title: string; side: string; items: EduItem[] };
@@ -104,6 +104,7 @@ const en: Dict = {
     cta:       'View on GitHub',
     site:      'Website',
     hexagone:  'A shadcn-style registry of React map components wired to official French open data (IGN/Géoplateforme, BAN, cadastre, PLU, DVF, Géorisques) — drop-in via the shadcn CLI.',
+    liasse:    'An Office-as-code toolkit: describe a document once with a typed DSL and render it to Excel, PowerPoint, Word and PDF — plus EN 16931-compliant Factur-X e-invoices (PDF/A-3b). Own-your-code components via the shadcn CLI.',
     maattitude: 'A Kemetic companion app — a 42-day path of inner alignment around the principles of Maât, with daily laws, journaling and a built-in library. Built with Flutter.',
   },
   exp: {
@@ -204,6 +205,7 @@ const fr: Dict = {
     cta:       'Voir sur GitHub',
     site:      'Site web',
     hexagone:  'Un registry façon shadcn de composants cartographiques React câblés sur les données ouvertes officielles françaises (IGN/Géoplateforme, BAN, cadastre, PLU, DVF, Géorisques) — installables via le CLI shadcn.',
+    liasse:    'Un toolkit Office-as-code : décris un document une fois en DSL typé et génère-le en Excel, PowerPoint, Word et PDF — plus des factures électroniques Factur-X conformes EN 16931 (PDF/A-3b). Composants own-your-code via le CLI shadcn.',
     maattitude: 'Une compagne kémite — un chemin d’éveil en 42 jours autour des principes de Maât, avec lois quotidiennes, journal et bibliothèque intégrée. Développée en Flutter.',
   },
   exp: {
@@ -304,6 +306,7 @@ const ru: Dict = {
     cta:       'Открыть на GitHub',
     site:      'Сайт',
     hexagone:  'Registry в стиле shadcn из React-компонентов карт, подключённых к официальным открытым данным Франции (IGN/Géoplateforme, BAN, кадастр, PLU, DVF, Géorisques) — устанавливается через CLI shadcn.',
+    liasse:    'Инструментарий Office-as-code: опиши документ один раз на типизированном DSL и сгенерируй его в Excel, PowerPoint, Word и PDF — плюс электронные счета Factur-X по стандарту EN 16931 (PDF/A-3b). Компоненты own-your-code через CLI shadcn.',
     maattitude: 'Кемитское приложение-компаньон — 42-дневный путь внутреннего согласия с принципами Маат: ежедневные законы, дневник и встроенная библиотека. Сделано на Flutter.',
   },
   exp: {

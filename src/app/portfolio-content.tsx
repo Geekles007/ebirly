@@ -173,6 +173,16 @@ export default function PortfolioContent() {
         { label: t.builds.site, href: 'https://hexagoneui.tnjl.me' },],
     },
     {
+      name: 'Liasse',
+      logo: '/liasse.svg',
+      version: 'v0.3.0',
+      tags: ['Office-as-code', 'XLSX · PPTX · DOCX · PDF', 'Factur-X EN 16931', 'shadcn CLI'],
+      badges: [{ t: 'MIT' }, { t: t.builds.pro, dim: true }],
+      desc: t.builds.liasse,
+      links: [{ label: t.builds.cta, href: 'https://github.com/Geekles007/liasse' },
+        { label: t.builds.site, href: 'https://liasse.tnjl.me' },],
+    },
+    {
       name: 'Maattitude',
       logo: '/maattitude.png',
       version: 'v1.0.1',
