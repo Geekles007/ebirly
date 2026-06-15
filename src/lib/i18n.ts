@@ -5,6 +5,8 @@ export type EduItem  = { d: string; s: string; l: string; g: string; h: string }
 
 export type Dict = {
   nav:    Array<{ n: string; l: string; h: string }>;
+  menu:   { open: string; close: string; title: string };
+  motion: { pause: string; play: string };
   ticker: { location: string; version: string };
   status: { title: string; online: string; rows: Array<[string, string]> };
   hero: {
@@ -58,6 +60,8 @@ const en: Dict = {
     { n: '07', l: 'Certs',       h: '#certs'     },
     { n: '08', l: 'Contact',     h: '#contact'   },
   ],
+  menu:   { open: 'Menu', close: 'Close', title: 'Index' },
+  motion: { pause: 'Pause the scrolling tech ticker', play: 'Resume the scrolling tech ticker' },
   ticker: { location: 'Paris, FR', version: 'v5.0.0' },
   status: {
     title:  'System status',
@@ -175,6 +179,8 @@ const fr: Dict = {
     { n: '07', l: 'Certifs',     h: '#certs'     },
     { n: '08', l: 'Contact',     h: '#contact'   },
   ],
+  menu:   { open: 'Menu', close: 'Fermer', title: 'Index' },
+  motion: { pause: 'Mettre en pause le bandeau défilant', play: 'Reprendre le bandeau défilant' },
   ticker: { location: 'Paris, FR', version: 'v5.0.0' },
   status: {
     title:  'Statut système',
@@ -292,6 +298,8 @@ const ru: Dict = {
     { n: '07', l: 'Сертификаты',   h: '#certs'     },
     { n: '08', l: 'Контакт',       h: '#contact'   },
   ],
+  menu:   { open: 'Меню', close: 'Закрыть', title: 'Индекс' },
+  motion: { pause: 'Остановить бегущую строку', play: 'Возобновить бегущую строку' },
   ticker: { location: 'Париж, Франция', version: 'v5.0.0' },
   status: {
     title:  'Статус системы',

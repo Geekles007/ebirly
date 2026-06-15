@@ -19,6 +19,11 @@ export function LangProvider({ children }: { children: ReactNode }) {
     if (saved && saved in dicts) setLangState(saved);
   }, []);
 
+  /* Keep <html lang> in sync so screen readers use the right pronunciation */
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+
   const setLang = (l: Lang) => {
     setLangState(l);
     localStorage.setItem('portfolio-lang', l);

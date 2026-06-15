@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useLang } from '@/contexts/lang';
 
 /* ─── Static data (same in all languages) ────────── */
@@ -163,6 +163,7 @@ type Product = {
 /* ─── Component ──────────────────────────────────── */
 export default function PortfolioContent() {
   const { t } = useLang();
+  const [paused, setPaused] = useState(false);
 
   const OSS_PRODUCTS: Product[] = [
     {
@@ -322,13 +323,22 @@ export default function PortfolioContent() {
       </section>
 
       {/* ── Marquee ── */}
-      <div className='marquee-strip'>
+      <div className='marquee-strip' data-paused={paused}>
         <div className='marquee-track'>
           {marqueeRow}
           {marqueeRow}
           {marqueeRow}
           {marqueeRow}
         </div>
+        <button
+          type='button'
+          className='marquee-toggle'
+          aria-pressed={paused}
+          aria-label={paused ? t.motion.play : t.motion.pause}
+          onClick={() => setPaused((v) => !v)}
+        >
+          {paused ? '▶' : '❚❚'}
+        </button>
       </div>
 
       {/* ── About ── */}
@@ -351,7 +361,7 @@ export default function PortfolioContent() {
             </div>
             <div className='id-card'>
               <div className='id-head'>
-                <h4>{t.about.id_head}</h4>
+                <h3>{t.about.id_head}</h3>
                 <span
                   style={{
                     fontFamily: 'var(--font-mono)',
@@ -477,7 +487,7 @@ export default function PortfolioContent() {
                   <span className='ap-idx'>
                     {String(i + 1).padStart(2, '0')}
                   </span>
-                  <h4>{p.t}</h4>
+                  <h3>{p.t}</h3>
                   <p>{p.d}</p>
                 </div>
               ))}
@@ -539,7 +549,7 @@ export default function PortfolioContent() {
                 <div className='exp-item' key={i}>
                   <div className='exp-date'>{it.d}</div>
                   <div>
-                    <h4 className='exp-role'>{it.r}</h4>
+                    <h3 className='exp-role'>{it.r}</h3>
                     <div className='exp-co'>{it.c}</div>
                     <p className='exp-desc'>{it.x}</p>
                   </div>
@@ -569,7 +579,7 @@ export default function PortfolioContent() {
                 <div className='exp-item' key={i}>
                   <div className='exp-date'>{it.d}</div>
                   <div>
-                    <h4 className='exp-role'>
+                    <h3 className='exp-role'>
                       <a
                         href={it.h}
                         target='_blank'
@@ -578,7 +588,7 @@ export default function PortfolioContent() {
                       >
                         {it.s}
                       </a>
-                    </h4>
+                    </h3>
                     <div className='exp-co'>{it.l}</div>
                     <p className='exp-desc'>{it.g}</p>
                   </div>

@@ -33,13 +33,24 @@ export default function CursorFx() {
       raf = requestAnimationFrame(loop);
     };
 
+    // Input-modality: keyboard users get the real system cursor back,
+    // pointer users keep the custom one.
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Tab') document.body.classList.add('using-keyboard');
+    };
+    const onPointer = () => document.body.classList.remove('using-keyboard');
+
     window.addEventListener('mousemove', onMove);
     window.addEventListener('mouseover', onOver);
+    window.addEventListener('keydown', onKeyDown);
+    window.addEventListener('mousedown', onPointer);
     loop();
 
     return () => {
       window.removeEventListener('mousemove', onMove);
       window.removeEventListener('mouseover', onOver);
+      window.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('mousedown', onPointer);
       cancelAnimationFrame(raf);
     };
   }, []);
