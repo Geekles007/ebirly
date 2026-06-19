@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+  <!-- connections: one hub, three interchangeable providers -->
+  <path d="M16 16 L7 7.5M16 16 L25 7.5M16 16 L16 26" stroke="#B9C0DB" stroke-width="1.8" stroke-linecap="round" />
+  <!-- provider nodes -->
+  <circle cx="7" cy="7.5" r="3.2" fill="#7C8AC0" />
+  <circle cx="25" cy="7.5" r="3.2" fill="#7C8AC0" />
+  <circle cx="16" cy="26" r="3.2" fill="#7C8AC0" />
+  <!-- central hub: the unified SDK -->
+  <rect x="10.4" y="10.4" width="11.2" height="11.2" rx="3.4" fill="#25336E" />
+  <circle cx="16" cy="16" r="2.3" fill="#EDEFF8" />
+</svg>

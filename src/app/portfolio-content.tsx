@@ -167,24 +167,14 @@ export default function PortfolioContent() {
 
   const OSS_PRODUCTS: Product[] = [
     {
-      name: 'Hexagone UI',
-      logo: '/hexagone-ui.svg',
-      version: 'v1.5.0',
-      tags: ['Registry', 'shadcn CLI', 'MapLibre', 'IGN · Géoplateforme'],
-      badges: [{ t: 'MIT' }, { t: t.builds.pro, dim: true }],
-      desc: t.builds.hexagone,
-      links: [{ label: t.builds.cta, href: 'https://github.com/Geekles007/hexagone-ui' },
-        { label: t.builds.site, href: 'https://hexagoneui.tnjl.me' },],
-    },
-    {
-      name: 'Liasse',
-      logo: '/liasse.svg',
+      name: 'llm_sdk',
+      logo: '/llm-sdk.svg',
       version: 'v0.3.0',
-      tags: ['Office-as-code', 'XLSX · PPTX · DOCX · PDF', 'Factur-X EN 16931', 'liasse CLI'],
+      tags: ['Dart · Flutter', 'Claude · OpenAI · Gemini', 'Streaming · Tools', 'Structured outputs'],
       badges: [{ t: 'MIT' }, { t: t.builds.pro, dim: true }],
-      desc: t.builds.liasse,
-      links: [{ label: t.builds.cta, href: 'https://github.com/Geekles007/liasse' },
-        { label: t.builds.site, href: 'https://liasse.tnjl.me' },],
+      desc: t.builds.llmsdk,
+      links: [{ label: t.builds.cta, href: 'https://github.com/Geekles007/llm_sdk' },
+        { label: 'pub.dev', href: 'https://pub.dev/packages/llm_sdk' },],
     },
     {
       name: 'Maattitude',
@@ -201,6 +191,26 @@ export default function PortfolioContent() {
   ];
 
   const PAID_PRODUCTS: Product[] = [
+    {
+      name: 'Liasse',
+      logo: '/liasse.svg',
+      version: 'v0.3.0',
+      tags: ['Office-as-code', 'XLSX · PPTX · DOCX · PDF', 'Factur-X EN 16931', 'liasse CLI'],
+      badges: [{ t: 'MIT' }, { t: t.builds.pro, dim: true }],
+      desc: t.builds.liasse,
+      links: [{ label: t.builds.cta, href: 'https://github.com/Geekles007/liasse' },
+        { label: t.builds.site, href: 'https://liasse.tnjl.me' },],
+    },
+    {
+      name: 'Hexagone UI',
+      logo: '/hexagone-ui.svg',
+      version: 'v1.5.0',
+      tags: ['Registry', 'shadcn CLI', 'MapLibre', 'IGN · Géoplateforme'],
+      badges: [{ t: 'MIT' }, { t: t.builds.pro, dim: true }],
+      desc: t.builds.hexagone,
+      links: [{ label: t.builds.cta, href: 'https://github.com/Geekles007/hexagone-ui' },
+        { label: t.builds.site, href: 'https://hexagoneui.tnjl.me' },],
+    },
   ];
 
   const renderProduct = (p: Product) => (
