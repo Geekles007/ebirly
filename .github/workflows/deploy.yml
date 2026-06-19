@@ -3,7 +3,7 @@ name: Deploy portfolio to Hetzner
 on:
   push:
     branches:
-      - main
+      - master
 
 permissions:
   contents: read
