@@ -1,12 +1,17 @@
-name: TNJL PORTOFOLIO
+name: Deploy portfolio to Hetzner
 
 on:
   push:
     branches:
-      - master
+      - main
 
 permissions:
   contents: read
+
+# Évite deux déploiements concurrents (annule le run précédent en cours).
+concurrency:
+  group: deploy-hetzner
+  cancel-in-progress: true
 
 jobs:
   build-and-deploy:
@@ -15,36 +20,46 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-
-      - name: Install Yarn
-        run: npm install -g yarn
+          cache: yarn
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Build
+      - name: Build (Next.js static export → ./out)
         run: yarn build
 
-      - name: List build output
+      - name: Show build output
         run: |
-          echo "Contents of ./out directory:"
-          ls -la ./out
-          echo "Total files to deploy:"
-          find ./out -type f | wc -l
+          echo "Files to deploy: $(find ./out -type f | wc -l)"
 
-      - name: Deploy to Hostinger via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./out/
-          server-dir: /domains/tnjl.me/public_html/
-          dangerous-clean-slate: false
-          log-level: verbose
+      - name: Deploy to Hetzner via rsync over SSH
+        env:
+          HETZNER_HOST: ${{ secrets.HETZNER_HOST }}
+          HETZNER_USER: ${{ secrets.HETZNER_USER }}
+          HETZNER_PATH: ${{ secrets.HETZNER_PATH }}
+          HETZNER_PORT: ${{ secrets.HETZNER_PORT }}
+          SSH_KEY: ${{ secrets.HETZNER_SSH_KEY }}
+        run: |
+          set -euo pipefail
+          PORT="${HETZNER_PORT:-22}"
+
+          # Clé privée de déploiement.
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
+          # Empreinte de l'hôte (évite le prompt interactif).
+          ssh-keyscan -p "$PORT" -H "$HETZNER_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+          # Note : le slash final sur ./out/ est volontaire (copie le CONTENU,
+          # pas le dossier). --delete supprime côté serveur les fichiers absents
+          # du build → le webroot doit être dédié à ce site.
+          rsync -avz --delete \
+            -e "ssh -i ~/.ssh/deploy_key -p $PORT" \
+            ./out/ "$HETZNER_USER@$HETZNER_HOST:$HETZNER_PATH"
