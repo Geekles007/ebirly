@@ -177,6 +177,17 @@ export default function PortfolioContent() {
         { label: 'pub.dev', href: 'https://pub.dev/packages/llm_sdk' },],
     },
     {
+      name: 'mdkit',
+      logo: '/mdkit.svg',
+      version: 'v0.1.0',
+      tags: ['Registry', 'shadcn CLI', 'Markdown · MDX', 'No backend'],
+      badges: [{ t: 'MIT' }, { t: 'npm' }],
+      desc: t.builds.mdkit,
+      links: [{ label: t.builds.cta, href: 'https://github.com/Geekles007/mdkit' },
+        { label: 'npm', href: 'https://www.npmjs.com/package/mdkit-cli' },
+        { label: t.builds.site, href: 'https://geekles007.github.io/mdkit' },],
+    },
+    {
       name: 'Maattitude',
       logo: '/maattitude.png',
       version: 'v1.0.1',

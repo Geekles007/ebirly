@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+  <!-- back card: the source component in the registry -->
+  <rect x="12" y="4" width="14" height="14" rx="3.2" fill="#7C8AC0" />
+  <!-- front card: copied into your project -->
+  <rect x="6" y="10" width="16" height="18" rx="3.6" fill="#25336E" />
+  <!-- markdown/MDX content lines -->
+  <rect x="9.5" y="14.5" width="9" height="2" rx="1" fill="#B9C0DB" />
+  <rect x="9.5" y="18.5" width="6" height="2" rx="1" fill="#B9C0DB" />
+  <rect x="9.5" y="22.5" width="7.5" height="2" rx="1" fill="#7C8AC0" />
+</svg>
