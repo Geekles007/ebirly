@@ -167,6 +167,26 @@ export default function PortfolioContent() {
 
   const OSS_PRODUCTS: Product[] = [
     {
+      name: 'ibird.dev',
+      logo: '/ibird.svg',
+      version: t.builds.ibird_v,
+      tags: ['Open source workshop', 'Static · no framework', 'Node · zero deps', 'One page per product'],
+      badges: [{ t: 'Live' }],
+      desc: t.builds.ibird,
+      links: [{ label: t.builds.site, href: 'https://ibird.dev' }],
+    },
+    {
+      name: 'facturx',
+      logo: '/facturx.svg',
+      version: 'v1.0.1',
+      tags: ['TypeScript', 'EN 16931 · CII', 'PDF/A-3', 'Edge · serverless'],
+      badges: [{ t: 'MIT' }, { t: 'npm' }],
+      desc: t.builds.facturx,
+      links: [{ label: t.builds.cta, href: 'https://github.com/Geekles007/facturx' },
+        { label: 'npm', href: 'https://www.npmjs.com/package/facturx-sdk' },
+        { label: t.builds.site, href: 'https://facturx.ibird.dev' },],
+    },
+    {
       name: 'llm_sdk',
       logo: '/llm-sdk.svg',
       version: 'v0.3.0',
@@ -186,6 +206,17 @@ export default function PortfolioContent() {
       links: [{ label: t.builds.cta, href: 'https://github.com/Geekles007/mdkit' },
         { label: 'npm', href: 'https://www.npmjs.com/package/mdkit-cli' },
         { label: t.builds.site, href: 'https://geekles007.github.io/mdkit' },],
+    },
+    {
+      name: 'ibirdui',
+      logo: '/ibirdui.svg',
+      version: 'v0.1.0',
+      tags: ['Registry', 'React · Tailwind', 'State-complete', 'a11y · upgradeable'],
+      badges: [{ t: 'MIT' }, { t: 'npm' }],
+      desc: t.builds.ibirdui,
+      links: [{ label: t.builds.cta, href: 'https://github.com/Geekles007/ibirdui' },
+        { label: 'npm', href: 'https://www.npmjs.com/package/ibirdui' },
+        { label: t.builds.site, href: 'https://geekles007.github.io/ibirdui' },],
     },
     {
       name: 'Maattitude',
@@ -212,16 +243,16 @@ export default function PortfolioContent() {
       links: [{ label: t.builds.cta, href: 'https://github.com/Geekles007/liasse' },
         { label: t.builds.site, href: 'https://liasse.tnjl.me' },],
     },
-    {
-      name: 'Hexagone UI',
-      logo: '/hexagone-ui.svg',
-      version: 'v1.5.0',
-      tags: ['Registry', 'shadcn CLI', 'MapLibre', 'IGN · Géoplateforme'],
-      badges: [{ t: 'MIT' }, { t: t.builds.pro, dim: true }],
-      desc: t.builds.hexagone,
-      links: [{ label: t.builds.cta, href: 'https://github.com/Geekles007/hexagone-ui' },
-        { label: t.builds.site, href: 'https://hexagoneui.tnjl.me' },],
-    },
+    // {
+    //   name: 'Hexagone UI',
+    //   logo: '/hexagone-ui.svg',
+    //   version: 'v1.5.0',
+    //   tags: ['Registry', 'shadcn CLI', 'MapLibre', 'IGN · Géoplateforme'],
+    //   badges: [{ t: 'MIT' }, { t: t.builds.pro, dim: true }],
+    //   desc: t.builds.hexagone,
+    //   links: [{ label: t.builds.cta, href: 'https://github.com/Geekles007/hexagone-ui' },
+    //     { label: t.builds.site, href: 'https://hexagoneui.tnjl.me' },],
+    // },
   ];
 
   const renderProduct = (p: Product) => (
@@ -361,6 +392,117 @@ export default function PortfolioContent() {
           {paused ? '▶' : '❚❚'}
         </button>
       </div>
+
+      {/* ── Featured project — Tchin (flagship) ── */}
+      <section id='featured' className='section-anchor featured'>
+        <div className='wrap'>
+          <div className='sec-head'>
+            <span className='sec-label'>{t.featured.label}</span>
+            <span className='chip'>{t.featured.chip}</span>
+          </div>
+
+          <div className='featured-grid'>
+            {/* Copy */}
+            <div className='featured-lead'>
+              <h2 className='featured-wordmark'>Tchin</h2>
+              <p className='featured-tagline'>{t.featured.tagline}</p>
+              <p
+                className='hero-desc featured-desc'
+                dangerouslySetInnerHTML={{ __html: t.featured.desc }}
+              />
+
+              <div className='featured-metrics'>
+                {t.featured.metrics.map((m) => (
+                  <div className='fm' key={m.l}>
+                    <b>{m.n}</b>
+                    <small>{m.l}</small>
+                  </div>
+                ))}
+              </div>
+
+              <div className='featured-games'>
+                <span className='fg-label'>{t.featured.gamesLabel}</span>
+                <div className='fg-list'>
+                  {t.featured.games.map((g) => (
+                    <span
+                      className='fg-chip'
+                      key={g.n}
+                      style={{ '--gc': g.c } as React.CSSProperties}
+                    >
+                      <i className='fg-emoji'>{g.e}</i>
+                      <span className='fg-name'>{g.n}</span>
+                      <span className='fg-players'>{g.p}</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className='featured-actions'>
+                <a
+                  className='featured-cta'
+                  href='https://tchin.games'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  {t.featured.cta} <span className='pr-arrow'>↗</span>
+                </a>
+                <a
+                  className='featured-url'
+                  href='https://tchin.games'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  tchin.games
+                </a>
+              </div>
+            </div>
+
+            {/* Console mockup: the shared screen + two phone controllers */}
+            <div className='featured-visual' aria-hidden='true'>
+              <div className='console'>
+                <div className='console-scene'>
+                  <div className='cs-bar'>
+                    <span className='cs-room'>
+                      {t.featured.m.room} · <b>TCH1N</b>
+                    </span>
+                    <span className='cs-online'>
+                      <i className='cs-dot' />
+                      {t.featured.m.online}
+                    </span>
+                  </div>
+                  <div className='cs-stage'>
+                    <span className='cs-now'>{t.featured.m.now}</span>
+                    <div className='cs-role'>
+                      <span className='cs-role-emoji'>🎭</span>
+                      <span className='cs-role-name'>Imposteur de mots</span>
+                    </div>
+                    <div className='cs-avatars'>
+                      {['#F0329C', '#FFB020', '#2DD4BF', '#FF5C43', '#8b6cf0'].map(
+                        (c, i) => (
+                          <i key={i} style={{ background: c }} />
+                        ),
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div className='console-phone phone-a'>
+                  <span className='cp-tag'>{t.featured.m.controller}</span>
+                  <span className='cp-card'>
+                    <span className='cp-emoji'>🎭</span>
+                    <span className='cp-secret'>{t.featured.m.secret}</span>
+                  </span>
+                </div>
+
+                <div className='console-phone phone-b'>
+                  <span className='cp-tag'>{t.featured.m.controller}</span>
+                  <span className='cp-vote'>{t.featured.m.vote}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ── About ── */}
       <section id='about' className='section-anchor'>

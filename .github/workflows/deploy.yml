@@ -54,12 +54,27 @@ jobs:
           printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
 
+          # --- Diagnostic : la clé privée est-elle valide ? ---
+          # Si ça échoue, le secret HETZNER_SSH_KEY est mal collé
+          # (clé publique, lignes BEGIN/END manquantes, ou tronquée).
+          echo "Empreinte de la clé privée fournie :"
+          ssh-keygen -l -f ~/.ssh/deploy_key
+          echo "Clé PUBLIQUE correspondante (doit être autorisée côté Hetzner) :"
+          ssh-keygen -y -f ~/.ssh/deploy_key
+
           # Empreinte de l'hôte (évite le prompt interactif).
           ssh-keyscan -p "$PORT" -H "$HETZNER_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+          # --- Diagnostic : l'authentification par clé passe-t-elle ? ---
+          # BatchMode=yes interdit le repli mot de passe → erreur nette
+          # au lieu d'un "Permission denied" ambigu.
+          ssh -i ~/.ssh/deploy_key -p "$PORT" \
+            -o BatchMode=yes -o IdentitiesOnly=yes \
+            "$HETZNER_USER@$HETZNER_HOST" "echo 'SSH OK — connecté en tant que' \$(whoami); pwd"
 
           # Note : le slash final sur ./out/ est volontaire (copie le CONTENU,
           # pas le dossier). --delete supprime côté serveur les fichiers absents
           # du build → le webroot doit être dédié à ce site.
           rsync -avz --delete \
-            -e "ssh -i ~/.ssh/deploy_key -p $PORT" \
+            -e "ssh -i ~/.ssh/deploy_key -p $PORT -o BatchMode=yes -o IdentitiesOnly=yes" \
             ./out/ "$HETZNER_USER@$HETZNER_HOST:$HETZNER_PATH"

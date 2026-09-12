@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none" role="img" aria-label="facturx">
+  <rect width="64" height="64" rx="14" fill="#0a0a0a"/>
+  <path d="M18.7 14.7h18.6l9.3 9.3v25.3H18.7z" fill="none" stroke="#ffffff" stroke-width="3.4" stroke-linejoin="round"/>
+  <path d="M37.3 14.7V24h9.3" fill="none" stroke="#ffffff" stroke-width="3.4" stroke-linejoin="round"/>
+  <path d="M25.3 32h13.4M25.3 40h8" stroke="#6b86ff" stroke-width="3.4" stroke-linecap="round"/>
+</svg>

@@ -982,6 +982,333 @@ section {
   color: var(--fg-dim);
 }
 
+/* ─── Featured project — Tchin ─────────────────────── */
+/* Point of view: a warm, electric party-console block that erupts out of the
+   cold technical portfolio. The whole thing runs on a scoped warm palette —
+   a deliberate contrast with the lime accent used everywhere else. */
+.featured {
+  position: relative;
+  overflow: hidden;
+  --tchin-mango: #ffb020;
+  --tchin-flame: #ff5c43;
+  --tchin-pink:  #f0329c;
+  --tchin-teal:  #2dd4bf;
+  --tchin-violet: #8b6cf0;
+  --tchin-grad: linear-gradient(100deg, var(--tchin-mango), var(--tchin-flame) 52%, var(--tchin-pink));
+}
+/* Hot glow bleeding from the top-right — the a11y spotlight's warm twin */
+.featured::before {
+  content: '';
+  position: absolute;
+  top: -22%;
+  right: -8%;
+  width: 720px;
+  height: 720px;
+  background: radial-gradient(circle, rgba(240, 50, 156, 0.16), rgba(255, 92, 67, 0.07) 45%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+.featured .wrap { position: relative; z-index: 1; }
+.featured .sec-label {
+  color: transparent;
+  background: var(--tchin-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 64px;
+  align-items: center;
+}
+@media (max-width: 940px) { .featured-grid { grid-template-columns: 1fr; gap: 56px; } }
+
+/* ── Left: copy ── */
+.featured-wordmark {
+  font-size: clamp(72px, 11vw, 168px);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  font-weight: 700;
+  margin: 0;
+  width: fit-content;
+  background: var(--tchin-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.featured-tagline {
+  font-size: clamp(20px, 2.2vw, 30px);
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  color: var(--fg);
+  margin: 6px 0 24px;
+  text-wrap: balance;
+}
+.featured-desc { max-width: 540px; margin: 0 0 34px; }
+
+.featured-metrics {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+.featured-metrics .fm {
+  border: 1px solid var(--line-2);
+  background: var(--bg-2);
+  padding: 12px 16px;
+  min-width: 92px;
+}
+.featured-metrics .fm b {
+  display: block;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.featured-metrics .fm small {
+  display: block;
+  margin-top: 7px;
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+/* Game cartridge chips */
+.featured-games { margin-bottom: 36px; }
+.fg-label {
+  display: block;
+  margin-bottom: 14px;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.fg-list { display: flex; flex-wrap: wrap; gap: 10px; }
+.fg-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px 10px 12px;
+  border: 1px solid var(--line-2);
+  border-left: 3px solid var(--gc);
+  border-radius: 12px;
+  background: var(--bg-2);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s, background 0.25s;
+}
+.fg-chip:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--gc) 55%, var(--line-2));
+  background: color-mix(in srgb, var(--gc) 8%, var(--bg-2));
+}
+.fg-emoji { font-size: 18px; line-height: 1; font-style: normal; }
+.fg-name { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; }
+.fg-players {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+/* CTA */
+.featured-actions { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+.featured-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 26px;
+  border-radius: 999px;
+  background: var(--tchin-grad);
+  background-size: 160% 100%;
+  color: #1a0a12;
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  box-shadow: 0 8px 30px -10px rgba(240, 50, 156, 0.5);
+  transition: background-position 0.45s ease, transform 0.25s, box-shadow 0.25s;
+}
+.featured-cta:hover {
+  background-position: 100% 0;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 42px -10px rgba(255, 92, 67, 0.6);
+}
+.featured-cta .pr-arrow { color: inherit; }
+.featured-url {
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--fg-dim);
+  border-bottom: 1px solid var(--line-2);
+  padding-bottom: 3px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.featured-url:hover { color: var(--fg); border-color: var(--tchin-pink); }
+
+/* ── Right: console mockup (screen + two phone controllers) ── */
+.featured-visual {
+  position: relative;
+  min-height: 430px;
+  display: grid;
+  place-items: center;
+}
+.console {
+  position: relative;
+  width: 100%;
+  max-width: 470px;
+  aspect-ratio: 1 / 0.9;
+}
+/* Floor glow under the console */
+.console::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 4%;
+  width: 76%;
+  height: 44px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse, rgba(255, 92, 67, 0.32), transparent 70%);
+  filter: blur(16px);
+  z-index: 0;
+}
+
+/* The shared screen (la scène) */
+.console-scene {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  padding: 15px 17px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line-2);
+  border-radius: 16px;
+  background:
+    radial-gradient(120% 130% at 50% 0%, rgba(240, 50, 156, 0.15), transparent 55%),
+    var(--bg-2);
+  box-shadow: 0 34px 74px -30px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+.cs-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.cs-room b { color: var(--fg); letter-spacing: 0.24em; }
+.cs-online { display: inline-flex; align-items: center; gap: 6px; color: var(--tchin-teal); }
+.cs-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--tchin-teal); animation: pulse-dot 2s infinite; }
+.cs-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+}
+.cs-now {
+  font-family: var(--font-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--tchin-mango);
+}
+.cs-role { display: flex; flex-direction: column; align-items: center; gap: 9px; }
+.cs-role-emoji { font-size: 42px; line-height: 1; filter: drop-shadow(0 6px 18px rgba(240, 50, 156, 0.45)); }
+.cs-role-name { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: var(--fg); }
+.cs-avatars { display: flex; gap: 6px; margin-top: 4px; }
+.cs-avatars i { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--bg-2); }
+
+/* Phones (les manettes) */
+.console-phone {
+  position: absolute;
+  bottom: 0;
+  z-index: 3;
+  width: 120px;
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid var(--line-2);
+  border-radius: 22px;
+  background: linear-gradient(180deg, #16111d, #0d0a12);
+  box-shadow: 0 26px 54px -20px rgba(0, 0, 0, 0.9);
+}
+.console-phone::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 34px;
+  height: 4px;
+  border-radius: 3px;
+  background: var(--line-2);
+}
+.phone-a { left: -5%;  --rot: -9deg; transform: rotate(-9deg); animation: floaty 6s ease-in-out infinite; }
+.phone-b { right: -5%; --rot: 9deg;  transform: rotate(9deg);  animation: floaty 6s ease-in-out infinite 0.9s; }
+.cp-tag {
+  margin-top: 8px;
+  font-family: var(--font-mono), monospace;
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  text-align: center;
+}
+.cp-card {
+  flex: 1;
+  min-height: 96px;
+  padding: 14px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: var(--bg);
+}
+.cp-emoji { font-size: 27px; line-height: 1; }
+.cp-secret { font-size: 9px; line-height: 1.35; text-align: center; color: var(--fg-dim); }
+.cp-vote {
+  flex: 1;
+  min-height: 96px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: var(--tchin-grad);
+  color: #1a0a12;
+  font-family: var(--font-mono), monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+@keyframes floaty {
+  0%, 100% { transform: rotate(var(--rot, 0deg)) translateY(0); }
+  50%      { transform: rotate(var(--rot, 0deg)) translateY(-8px); }
+}
+
+@media (max-width: 480px) {
+  .console-phone { width: 104px; }
+  .phone-a { left: 0; }
+  .phone-b { right: 0; }
+}
+
 /* ─── Experience ───────────────────────────────────── */
 .exp-grid {
   display: grid;

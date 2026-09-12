@@ -24,6 +24,14 @@ export type Dict = {
   };
   stack:   { label: string; chip: string; title: string };
   work:    { label: string; chip: string; title: string };
+  featured: {
+    label: string; chip: string; tagline: string; desc: string;
+    metrics: Array<{ n: string; l: string }>;
+    gamesLabel: string;
+    games: Array<{ e: string; n: string; p: string; c: string }>;
+    cta: string;
+    m: { room: string; online: string; now: string; secret: string; vote: string; controller: string };
+  };
   a11y: {
     label: string; chip: string; title: string;
     quote: string; intro: string; cta: string;
@@ -34,7 +42,8 @@ export type Dict = {
     label: string; chip: string; title: string; intro: string;
     oss: string; oss_chip: string; paid: string; paid_chip: string; soon: string;
     open: string; pro: string; cta: string; site: string;
-    hexagone: string; liasse: string; maattitude: string; llmsdk: string; mdkit: string;
+    hexagone: string; liasse: string; maattitude: string; llmsdk: string; mdkit: string; ibirdui: string;
+    ibird: string; ibird_v: string; facturx: string;
   };
   exp:     { label: string; chip: string; title: string; side: string; items: WorkItem[] };
   edu:     { label: string; chip: string; title: string; side: string; items: EduItem[] };
@@ -50,6 +59,7 @@ export type Dict = {
 ══════════════════════════════════════════════════════ */
 const en: Dict = {
   nav: [
+    { n: '★',  l: 'Tchin',       h: '#featured'  },
     { n: '01', l: 'About',       h: '#about'     },
     { n: '02', l: 'Stack',       h: '#stack'     },
     { n: '03', l: 'Work',        h: '#work'      },
@@ -100,6 +110,22 @@ const en: Dict = {
   },
   stack:   { label: '02 — Stack',             chip: '18 technologies · updated 04.2026', title: 'Tools & playground.' },
   work:    { label: '03 — Selected projects',  chip: '2022 — 2026',                       title: 'Recent work.' },
+  featured: {
+    label:   '★ Flagship — Main project',
+    chip:    '● Live · tchin.games',
+    tagline: 'Cheers — game on.',
+    desc:    'The <strong>party-games console</strong> for your nights out. The shared screen runs the show, your phones are the <strong>controllers</strong>. Zero install, free, straight in the browser.',
+    metrics: [{ n: '4', l: 'games live' }, { n: '20', l: 'players max' }, { n: '0', l: 'install' }, { n: 'FR/EN', l: 'bilingual' }],
+    gamesLabel: '4 games, one console',
+    games: [
+      { e: '🎭', n: 'Imposteur de mots', p: '3–10 players', c: '#F0329C' },
+      { e: '◳',  n: "Carrés d'or",       p: '2 players',    c: '#FFB020' },
+      { e: '🌀', n: 'Labyrinthe',        p: '2–20 players', c: '#2DD4BF' },
+      { e: '🃏', n: 'Pioche folle',      p: '3–8 players',  c: '#FF5C43' },
+    ],
+    cta: 'Play now',
+    m: { room: 'ROOM', online: '6 online', now: 'now playing', secret: "shh… it's a secret", vote: 'VOTE', controller: 'your controller' },
+  },
   a11y: {
     label:    '★ Spotlight — Accessibility',
     chip:     'WCAG 2.1 AA · RGAA',
@@ -117,11 +143,11 @@ const en: Dict = {
   },
   builds: {
     label:     '04 — Products & Open source',
-    chip:      '2 shipped · more soon',
+    chip:      '7 shipped · more soon',
     title:     'Things I build.',
     intro:     'Beyond client work, I design and ship my own products — open-source tools and paid software, crafted end to end.',
     oss:       'Open source',
-    oss_chip:  '01 / 01 · free',
+    oss_chip:  '6 · free',
     paid:      'Paid products',
     paid_chip: 'live on iOS',
     soon:      'Trouvy · Liasse — in the works.',
@@ -134,6 +160,10 @@ const en: Dict = {
     maattitude: 'A Kemetic companion app — a 42-day path of inner alignment around the principles of Maât, with daily laws, journaling and a built-in library. Built with Flutter.',
     llmsdk:    'A unified LLM SDK for Dart & Flutter: talk to Claude, OpenAI and Gemini through one interface — multi-provider, streaming, tool calling and typed structured outputs. Switch providers in a single line.',
     mdkit:     'A shadcn-style registry of copy-paste Markdown/MDX components — callouts, steps, tabs, code blocks, file trees and more. No runtime dependency, no backend: the CLI copies the source straight into your project from a static JSON registry.',
+    ibirdui:   'A registry of "living" React components that go beyond shadcn: every async state handled out of the box (idle/loading/empty/error/success), accessibility verified with axe, and a copy-paste upgrade path that survives your edits. Add and upgrade via the CLI.',
+    ibird:     'The workshop these tools come from: one page per product, an honest status for each, and only the links that matter — repo, package, docs. Static and framework-free: a 250-line Node script generates the whole site, with no npm dependency at runtime or at build time.',
+    ibird_v:   '6 products',
+    facturx:   'A pure TypeScript SDK for French e-invoicing: build, validate, embed and read Factur-X invoices at the EN 16931 profile, with the reform\'s French rules. Money as integers, typed errors carrying the exact field path, no runtime dependency in the core — and every claim checked on each commit by the official XSD, three schematrons and veraPDF.',
   },
   exp: {
     label: '05 — Experience',
@@ -171,6 +201,7 @@ const en: Dict = {
 ══════════════════════════════════════════════════════ */
 const fr: Dict = {
   nav: [
+    { n: '★',  l: 'Tchin',       h: '#featured'  },
     { n: '01', l: 'À propos',    h: '#about'     },
     { n: '02', l: 'Stack',       h: '#stack'     },
     { n: '03', l: 'Projets',     h: '#work'      },
@@ -221,6 +252,22 @@ const fr: Dict = {
   },
   stack:   { label: '02 — Stack technique',      chip: '18 technologies · màj 04.2026', title: 'Outils & terrain de jeu.' },
   work:    { label: '03 — Projets sélectionnés',  chip: '2022 — 2026',                   title: 'Travaux récents.' },
+  featured: {
+    label:   '★ Projet phare',
+    chip:    '● En ligne · tchin.games',
+    tagline: 'On trinque, on joue.',
+    desc:    "La <strong>borne de party games</strong> de vos soirées. L'écran partagé fait le show, vos téléphones sont les <strong>manettes</strong>. Zéro install, gratuit, direct dans le navigateur.",
+    metrics: [{ n: '4', l: 'jeux en ligne' }, { n: '20', l: 'joueurs max' }, { n: '0', l: 'install' }, { n: 'FR/EN', l: 'bilingue' }],
+    gamesLabel: '4 jeux, une seule borne',
+    games: [
+      { e: '🎭', n: 'Imposteur de mots', p: '3–10 joueurs', c: '#F0329C' },
+      { e: '◳',  n: "Carrés d'or",       p: '2 joueurs',    c: '#FFB020' },
+      { e: '🌀', n: 'Labyrinthe',        p: '2–20 joueurs', c: '#2DD4BF' },
+      { e: '🃏', n: 'Pioche folle',      p: '3–8 joueurs',  c: '#FF5C43' },
+    ],
+    cta: 'Jouer maintenant',
+    m: { room: 'SALON', online: '6 en ligne', now: 'en cours', secret: "chut… c'est secret", vote: 'VOTER', controller: 'ta manette' },
+  },
   a11y: {
     label:    '★ Focus — Accessibilité',
     chip:     'WCAG 2.1 AA · RGAA',
@@ -238,11 +285,11 @@ const fr: Dict = {
   },
   builds: {
     label:     '04 — Produits & Open source',
-    chip:      '2 publiés · bientôt plus',
+    chip:      '7 publiés · bientôt plus',
     title:     'Ce que je construis.',
     intro:     'Au-delà des missions clients, je conçois et publie mes propres produits — outils open source et logiciels payants, pensés de bout en bout.',
     oss:       'Open source',
-    oss_chip:  '01 / 01 · gratuit',
+    oss_chip:  '6 · gratuit',
     paid:      'Produits payants',
     paid_chip: 'dispo sur iOS',
     soon:      'Trouvy · Liasse — en préparation.',
@@ -255,6 +302,10 @@ const fr: Dict = {
     maattitude: 'Une compagne kémite — un chemin d’éveil en 42 jours autour des principes de Maât, avec lois quotidiennes, journal et bibliothèque intégrée. Développée en Flutter.',
     llmsdk:    'Un SDK LLM unifié pour Dart & Flutter : parle à Claude, OpenAI et Gemini via une seule interface — multi-provider, streaming, tool calling et sorties structurées typées. Changer de provider tient en une ligne.',
     mdkit:     'Un registry façon shadcn de composants Markdown/MDX en copy-paste — callouts, steps, tabs, blocs de code, arborescences de fichiers et plus. Sans dépendance runtime ni backend : le CLI copie le code directement dans ton projet depuis un registry JSON statique.',
+    ibirdui:   'Un registry de composants React « vivants » qui vont plus loin que shadcn : chaque état async géré d\'office (idle/loading/empty/error/success), accessibilité vérifiée avec axe, et un copy-paste qui reste à jour sans écraser tes modifs. Installation et mise à jour via le CLI.',
+    ibird:     'L\'atelier d\'où sortent ces outils : une page par produit, un statut honnête pour chacun, et seulement les liens qui comptent — dépôt, paquet, documentation. Statique et sans framework : un script Node de 250 lignes génère tout le site, sans aucune dépendance npm, ni à l\'exécution ni à la construction.',
+    ibird_v:   '6 produits',
+    facturx:   'Un SDK TypeScript pur pour la facture électronique française : générer, valider, embarquer et lire des factures Factur-X au profil EN 16931, avec les règles françaises de la réforme. Montants en entiers, erreurs typées portant le chemin exact du champ, aucune dépendance runtime dans le cœur — et chaque promesse vérifiée à chaque commit par le XSD officiel, trois schematrons et veraPDF.',
   },
   exp: {
     label: '05 — Parcours',
@@ -292,6 +343,7 @@ const fr: Dict = {
 ══════════════════════════════════════════════════════ */
 const ru: Dict = {
   nav: [
+    { n: '★',  l: 'Tchin',         h: '#featured'  },
     { n: '01', l: 'О себе',        h: '#about'     },
     { n: '02', l: 'Стек',          h: '#stack'     },
     { n: '03', l: 'Проекты',       h: '#work'      },
@@ -342,6 +394,22 @@ const ru: Dict = {
   },
   stack:   { label: '02 — Стек',               chip: '18 технологий · обновлено 04.2026', title: 'Инструменты и площадка.' },
   work:    { label: '03 — Избранные проекты',   chip: '2022 — 2026',                        title: 'Недавние работы.' },
+  featured: {
+    label:   '★ Главный проект',
+    chip:    '● Онлайн · tchin.games',
+    tagline: 'Чин-чин — поехали.',
+    desc:    'Консоль <strong>вечериночных игр</strong>. Общий экран ведёт шоу, ваши телефоны — <strong>пульты</strong>. Без установки, бесплатно, прямо в браузере.',
+    metrics: [{ n: '4', l: 'игры в сети' }, { n: '20', l: 'игроков' }, { n: '0', l: 'установок' }, { n: 'FR/EN', l: 'два языка' }],
+    gamesLabel: '4 игры, одна консоль',
+    games: [
+      { e: '🎭', n: 'Imposteur de mots', p: '3–10 игроков', c: '#F0329C' },
+      { e: '◳',  n: "Carrés d'or",       p: '2 игрока',     c: '#FFB020' },
+      { e: '🌀', n: 'Labyrinthe',        p: '2–20 игроков', c: '#2DD4BF' },
+      { e: '🃏', n: 'Pioche folle',      p: '3–8 игроков',  c: '#FF5C43' },
+    ],
+    cta: 'Играть',
+    m: { room: 'САЛОН', online: '6 онлайн', now: 'идёт игра', secret: 'тсс… это секрет', vote: 'ГОЛОС', controller: 'твой пульт' },
+  },
   a11y: {
     label:    '★ В фокусе — Доступность',
     chip:     'WCAG 2.1 AA · RGAA',
@@ -359,11 +427,11 @@ const ru: Dict = {
   },
   builds: {
     label:     '04 — Продукты и Open source',
-    chip:      '2 выпущено · скоро ещё',
+    chip:      '7 выпущено · скоро ещё',
     title:     'Что я создаю.',
     intro:     'Помимо клиентских проектов, я разрабатываю и выпускаю собственные продукты — open-source инструменты и платное ПО, созданные от и до.',
     oss:       'Open source',
-    oss_chip:  '01 / 01 · бесплатно',
+    oss_chip:  '6 · бесплатно',
     paid:      'Платные продукты',
     paid_chip: 'в App Store',
     soon:      'Trouvy · Liasse — в разработке.',
@@ -376,6 +444,10 @@ const ru: Dict = {
     maattitude: 'Кемитское приложение-компаньон — 42-дневный путь внутреннего согласия с принципами Маат: ежедневные законы, дневник и встроенная библиотека. Сделано на Flutter.',
     llmsdk:    'Унифицированный LLM SDK для Dart и Flutter: общайся с Claude, OpenAI и Gemini через единый интерфейс — мультипровайдер, стриминг, вызов инструментов и типизированный структурированный вывод. Смена провайдера — одна строка.',
     mdkit:     'Registry в стиле shadcn из копируемых Markdown/MDX-компонентов — callout, steps, tabs, блоки кода, деревья файлов и другое. Без рантайм-зависимостей и бэкенда: CLI копирует исходники прямо в проект из статичного JSON-реестра.',
+    ibirdui:   'Registry «живых» React-компонентов, идущих дальше shadcn: каждое асинхронное состояние обработано из коробки (idle/loading/empty/error/success), доступность проверена через axe, а copy-paste обновляется, не затирая ваши правки. Установка и обновление через CLI.',
+    ibird:     'Мастерская, из которой выходят эти инструменты: по странице на продукт, честный статус для каждого и только те ссылки, которые нужны — репозиторий, пакет, документация. Статический сайт без фреймворка: весь сайт генерирует Node-скрипт на 250 строк, без единой npm-зависимости ни при сборке, ни во время работы.',
+    ibird_v:   '6 продуктов',
+    facturx:   'Чистый TypeScript-SDK для французского электронного счёта-фактуры: создание, валидация, вложение и чтение счетов Factur-X профиля EN 16931 с французскими правилами реформы. Суммы целыми числами, типизированные ошибки с точным путём до поля, ноль runtime-зависимостей в ядре — и каждое утверждение проверяется на каждом коммите официальной XSD, тремя schematron и veraPDF.',
   },
   exp: {
     label: '05 — Опыт работы',
