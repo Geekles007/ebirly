@@ -66,6 +66,42 @@ jobs:
           echo "Poids total         : $(du -sh ./out | cut -f1)"
           echo "Destination         : ${{ secrets.FTP_SERVER_DIR || vars.FTP_SERVER_DIR || '/public_html/' }}"
 
+      # Diagnostic réseau : dit précisément ce qui coince (nom d'hôte ou port)
+      # au lieu du "Timeout (control socket)" opaque de l'action.
+      - name: Preflight FTP connectivity
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_PORT: ${{ secrets.FTP_PORT || vars.FTP_PORT || 21 }}
+        run: |
+          set -uo pipefail
+
+          # Un secret contenant "ftps://" ou un chemin est une erreur fréquente.
+          host=$(printf '%s' "$FTP_SERVER" | sed -E 's#^[a-zA-Z]+://##; s#[/:].*$##')
+          if [ "$host" != "$FTP_SERVER" ]; then
+            echo "::warning::FTP_SERVER contient un protocole, un port ou un chemin. N'y mettre que le nom d'hôte, par exemple wwwXXX.your-server.de"
+          fi
+
+          if getent hosts "$host" >/dev/null 2>&1; then
+            echo "DNS : hôte résolu, $(getent hosts "$host" | wc -l) adresse(s)"
+          else
+            echo "::error::DNS : nom d'hôte introuvable. Corriger le secret FTP_SERVER."
+            exit 1
+          fi
+
+          # Les runners GitHub sont en IPv4 : on teste explicitement l'IPv4.
+          v4=$(getent ahostsv4 "$host" 2>/dev/null | awk '{print $1}' | head -1)
+          if [ -z "$v4" ]; then
+            echo "::error::Aucune adresse IPv4 pour cet hôte. Les runners GitHub ne sortent pas en IPv6."
+            exit 1
+          fi
+
+          if timeout 15 bash -c "cat < /dev/null > /dev/tcp/$v4/$FTP_PORT" 2>/dev/null; then
+            echo "TCP : connexion établie sur le port configuré"
+          else
+            echo "::error::TCP : aucune réponse sur le port configuré. Vérifier FTP_SERVER et FTP_PORT (21 pour du FTPS explicite, pas 22 qui est du SFTP)."
+            exit 1
+          fi
+
       # L'action garde un fichier d'état (.ftp-deploy-sync-state.json) à la racine
       # distante : seuls les fichiers modifiés repartent à chaque déploiement.
       - name: Deploy to Hetzner via FTPS
@@ -87,3 +123,4 @@ jobs:
           # puis renvoie tout (utile pour purger les fichiers d'une ancienne version).
           dangerous-clean-slate: ${{ github.event_name == 'workflow_dispatch' && inputs.clean }}
           log-level: standard
+          timeout: 60000
