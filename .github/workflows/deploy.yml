@@ -72,6 +72,8 @@ jobs:
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_PORT: ${{ secrets.FTP_PORT || vars.FTP_PORT || 21 }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
           set -uo pipefail
 
@@ -99,6 +101,20 @@ jobs:
             echo "TCP : connexion établie sur le port configuré"
           else
             echo "::error::TCP : aucune réponse sur le port configuré. Vérifier FTP_SERVER et FTP_PORT (21 pour du FTPS explicite, pas 22 qui est du SFTP)."
+            exit 1
+          fi
+
+          # Dialogue FTPS réel : distingue un serveur muet d'un échec TLS
+          # ou d'identifiants refusés. curl est préinstallé sur les runners.
+          echo "FTPS : tentative de connexion et de listing…"
+          if curl -4 --ssl-reqd --disable-epsv --connect-timeout 20 --max-time 45 \
+                  --user "$FTP_USERNAME:$FTP_PASSWORD" \
+                  "ftp://$host:$FTP_PORT/" --list-only -sS -o /tmp/ftp-listing.txt 2>/tmp/ftp-err.txt; then
+            echo "FTPS : connexion et listing réussis, $(wc -l < /tmp/ftp-listing.txt) entrée(s) à la racine"
+            sed 's/^/  /' /tmp/ftp-listing.txt | head -20
+          else
+            echo "::error::FTPS : le dialogue a échoué. Détail ci-dessous."
+            sed 's/^/  /' /tmp/ftp-err.txt | head -10
             exit 1
           fi
 
