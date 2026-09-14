@@ -32,3 +32,34 @@ Pour ajouter une vidéo de projet, encoder depuis la capture d'origine :
 ffmpeg -i capture.mov -t 12 -vf "scale=1280:-2,fps=30" -c:v libx264 -crf 27 -pix_fmt yuv420p -movflags +faststart -an public/works/opt/nom.mp4
 ffmpeg -ss 2 -i capture.mov -frames:v 1 -vf "scale=1280:-2" -q:v 4 public/works/opt/nom.jpg
 ```
+
+## Déploiement
+
+Chaque push sur `master` déclenche [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) : build de l'export statique, puis envoi du dossier `out/` sur Hetzner en FTPS.
+
+### Secrets à définir
+
+Dans le dépôt GitHub, `Settings → Secrets and variables → Actions → Secrets` :
+
+| Secret | Valeur |
+| --- | --- |
+| `FTP_SERVER` | `www690.your-server.de`, le serveur Hetzner de ce compte. Sans `ftp://` |
+| `FTP_USERNAME` | Nom de l'utilisateur FTP |
+| `FTP_PASSWORD` | Mot de passe de cet utilisateur |
+
+### Variables optionnelles
+
+À définir au choix en secret ou en variable, uniquement si les valeurs par défaut ne conviennent pas. Le workflow lit le secret en priorité, puis la variable, puis le défaut :
+
+| Variable | Défaut | Quand la définir |
+| --- | --- | --- |
+| `FTP_SERVER_DIR` | `/public_html/` | Le site vit dans un autre dossier. Terminer par `/` |
+| `FTP_PROTOCOL` | `ftps` | À ne pas changer : le serveur rejette le FTP non chiffré |
+| `FTP_PORT` | `21` | Port FTP non standard |
+
+### Notes
+
+- L'action conserve un fichier `.ftp-deploy-sync-state.json` à la racine distante : seuls les fichiers modifiés sont renvoyés à chaque déploiement.
+- Pour purger d'anciens fichiers restés sur le serveur, lancer le workflow à la main depuis l'onglet Actions en cochant *Vider le dossier distant avant l'envoi*. À n'utiliser qu'une fois : cette option supprime tout le contenu de la destination avant de renvoyer le site.
+- Le serveur impose le TLS explicite. Une tentative en FTP simple renvoie `550 SSL/TLS required on the control channel`.
+- Le job échoue avant tout transfert si un secret manque ou si le build n'a rien produit, pour ne jamais écraser le site en ligne par un export vide.

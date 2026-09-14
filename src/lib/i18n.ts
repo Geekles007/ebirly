@@ -131,7 +131,7 @@ const fr: Dict = {
       mdkit: 'Registry façon shadcn de composants Markdown/MDX en copier-coller : callouts, steps, tabs, blocs de code, arborescences.',
       ibirdui: 'Composants React « vivants » : chaque état async géré d’office, accessibilité vérifiée avec axe, mise à jour sans écraser vos modifications.',
       maattitude: 'Application compagnon kémite : un chemin de 42 jours autour des principes de Maât, journal et bibliothèque intégrée. Flutter, iOS.',
-      liasse: 'Office-as-code : décrivez un document une fois en DSL typé, générez-le en Excel, PowerPoint, Word et PDF, plus Factur-X.',
+      blocks: 'Catalogue de blocs d’interface complets, animés et accessibles, bâtis sur les primitives ibirdui. Quatorze blocs marketing, navigation et tarifs, plus des blocs morphing, installés en une commande. Le code reste chez vous.',
     },
   },
   a11y: {
@@ -287,7 +287,7 @@ const en: Dict = {
       mdkit: 'A shadcn-style registry of copy-paste Markdown/MDX components: callouts, steps, tabs, code blocks, file trees.',
       ibirdui: '“Living” React components: every async state handled out of the box, accessibility verified with axe, upgrades that survive your edits.',
       maattitude: 'A Kemetic companion app: a 42-day path around the principles of Maât, with journaling and a built-in library. Flutter, iOS.',
-      liasse: 'Office-as-code: describe a document once with a typed DSL, render it to Excel, PowerPoint, Word and PDF, plus Factur-X.',
+      blocks: 'A catalogue of complete, animated, accessible UI blocks built on the ibirdui primitives. Fourteen marketing, navigation and pricing blocks plus morphing ones, installed with a single command. You keep the code.',
     },
   },
   a11y: {
@@ -443,7 +443,7 @@ const ru: Dict = {
       mdkit: 'Registry в стиле shadcn из копируемых Markdown/MDX-компонентов: callout, steps, tabs, блоки кода, деревья файлов.',
       ibirdui: '«Живые» React-компоненты: каждое асинхронное состояние из коробки, доступность проверена axe, обновления не затирают ваши правки.',
       maattitude: 'Кемитское приложение-компаньон: 42-дневный путь по принципам Маат, дневник и встроенная библиотека. Flutter, iOS.',
-      liasse: 'Office-as-code: опишите документ один раз на типизированном DSL и получите Excel, PowerPoint, Word, PDF и Factur-X.',
+      blocks: 'Каталог готовых анимированных и доступных UI-блоков на примитивах ibirdui. Четырнадцать блоков для маркетинга, навигации и тарифов плюс morphing-блоки, установка одной командой. Код остаётся у вас.',
     },
   },
   a11y: {

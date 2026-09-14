@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - master
+  # Permet de relancer un déploiement à la main, avec l'option "table rase".
+  workflow_dispatch:
+    inputs:
+      clean:
+        description: "Vider le dossier distant avant l'envoi (à n'utiliser qu'une fois, pour purger les anciens fichiers)"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -34,47 +41,49 @@ jobs:
       - name: Build (Next.js static export → ./out)
         run: yarn build
 
-      - name: Show build output
-        run: |
-          echo "Files to deploy: $(find ./out -type f | wc -l)"
-
-      - name: Deploy to Hetzner via rsync over SSH
+      # Garde-fou : un export vide ou un secret manquant fait échouer le job
+      # AVANT de toucher au serveur, plutôt que d'écraser le site en ligne.
+      - name: Check build output and secrets
         env:
-          HETZNER_HOST: ${{ secrets.HETZNER_HOST }}
-          HETZNER_USER: ${{ secrets.HETZNER_USER }}
-          HETZNER_PATH: ${{ secrets.HETZNER_PATH }}
-          HETZNER_PORT: ${{ secrets.HETZNER_PORT }}
-          SSH_KEY: ${{ secrets.HETZNER_SSH_KEY }}
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
           set -euo pipefail
-          PORT="${HETZNER_PORT:-22}"
 
-          # Clé privée de déploiement.
-          mkdir -p ~/.ssh
-          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
+          missing=""
+          [ -n "$FTP_SERVER" ]   || missing="$missing FTP_SERVER"
+          [ -n "$FTP_USERNAME" ] || missing="$missing FTP_USERNAME"
+          [ -n "$FTP_PASSWORD" ] || missing="$missing FTP_PASSWORD"
+          if [ -n "$missing" ]; then
+            echo "::error::Secrets manquants :$missing (Settings → Secrets and variables → Actions)"
+            exit 1
+          fi
 
-          # --- Diagnostic : la clé privée est-elle valide ? ---
-          # Si ça échoue, le secret HETZNER_SSH_KEY est mal collé
-          # (clé publique, lignes BEGIN/END manquantes, ou tronquée).
-          echo "Empreinte de la clé privée fournie :"
-          ssh-keygen -l -f ~/.ssh/deploy_key
-          echo "Clé PUBLIQUE correspondante (doit être autorisée côté Hetzner) :"
-          ssh-keygen -y -f ~/.ssh/deploy_key
+          [ -f ./out/index.html ] || { echo "::error::./out/index.html introuvable — le build n'a rien exporté."; exit 1; }
 
-          # Empreinte de l'hôte (évite le prompt interactif).
-          ssh-keyscan -p "$PORT" -H "$HETZNER_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          echo "Fichiers à déployer : $(find ./out -type f | wc -l)"
+          echo "Poids total         : $(du -sh ./out | cut -f1)"
+          echo "Destination         : ${{ secrets.FTP_SERVER_DIR || vars.FTP_SERVER_DIR || '/public_html/' }}"
 
-          # --- Diagnostic : l'authentification par clé passe-t-elle ? ---
-          # BatchMode=yes interdit le repli mot de passe → erreur nette
-          # au lieu d'un "Permission denied" ambigu.
-          ssh -i ~/.ssh/deploy_key -p "$PORT" \
-            -o BatchMode=yes -o IdentitiesOnly=yes \
-            "$HETZNER_USER@$HETZNER_HOST" "echo 'SSH OK — connecté en tant que' \$(whoami); pwd"
-
-          # Note : le slash final sur ./out/ est volontaire (copie le CONTENU,
-          # pas le dossier). --delete supprime côté serveur les fichiers absents
-          # du build → le webroot doit être dédié à ce site.
-          rsync -avz --delete \
-            -e "ssh -i ~/.ssh/deploy_key -p $PORT -o BatchMode=yes -o IdentitiesOnly=yes" \
-            ./out/ "$HETZNER_USER@$HETZNER_HOST:$HETZNER_PATH"
+      # L'action garde un fichier d'état (.ftp-deploy-sync-state.json) à la racine
+      # distante : seuls les fichiers modifiés repartent à chaque déploiement.
+      - name: Deploy to Hetzner via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # Le serveur Hetzner IMPOSE le TLS explicite : une connexion en FTP
+          # simple est rejetée par "550 SSL/TLS required on the control channel".
+          # Ne pas repasser FTP_PROTOCOL à "ftp".
+          protocol: ${{ secrets.FTP_PROTOCOL || vars.FTP_PROTOCOL || 'ftps' }}
+          port: ${{ secrets.FTP_PORT || vars.FTP_PORT || 21 }}
+          local-dir: ./out/
+          # Racine web du compte Hetzner. Surchargeable par FTP_SERVER_DIR,
+          # défini au choix en secret ou en variable de dépôt.
+          server-dir: ${{ secrets.FTP_SERVER_DIR || vars.FTP_SERVER_DIR || '/public_html/' }}
+          # true uniquement via un lancement manuel : vide la destination
+          # puis renvoie tout (utile pour purger les fichiers d'une ancienne version).
+          dangerous-clean-slate: ${{ github.event_name == 'workflow_dispatch' && inputs.clean }}
+          log-level: standard
