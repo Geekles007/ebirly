@@ -1,61 +1,63 @@
-import type { Metadata } from 'next';
-import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
-import Nav from '@/components/nav';
-import CursorFx from '@/components/cursor-fx';
+import type { Metadata, Viewport } from 'next';
+import { Inter, Instrument_Serif } from 'next/font/google';
+import { ThemeProvider } from '@/components/theme-provider';
 import { LangProvider } from '@/contexts/lang';
+import Nav from '@/components/site/nav';
+import Footer from '@/components/site/footer';
 import './globals.css';
 
-const fontSans = Space_Grotesk({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+const sans = Inter({
+  subsets: ['latin', 'latin-ext', 'cyrillic'],
   variable: '--font-sans',
+  display: 'swap',
 });
 
-const fontMono = JetBrains_Mono({
+const serif = Instrument_Serif({
+  weight: '400',
+  style: ['normal', 'italic'],
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-  variable: '--font-mono',
+  variable: '--font-serif',
+  display: 'swap',
 });
+
+const TITLE = 'Tondji Lee — Ingénieur Logiciel & Designer';
+const DESC =
+  'Ingénieur logiciel basé à Paris, 9 ans d’expérience. React, Next.js, TypeScript, Node.js, design systems et accessibilité. Disponible pour un nouveau poste.';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ebirly.com'),
-  title: {
-    default: 'Tondji Lee — Engineer & Designer',
-    template: '%s | Tondji Lee',
-  },
-  description:
-    'Software Engineer & Graphic Designer based in Paris. I build fast, precise interfaces with React, Next.js, and a strong eye for design.',
-  openGraph: {
-    title: 'Tondji Lee — Engineer & Designer',
-    description:
-      'Software Engineer & Graphic Designer based in Paris. I build fast, precise interfaces with React, Next.js, and a strong eye for design.',
-    url: 'https://ebirly.com',
-    siteName: 'Tondji Lee',
-    locale: 'en_US',
-    type: 'website',
-  },
+  title: { default: TITLE, template: '%s · Tondji Lee' },
+  description: DESC,
+  openGraph: { title: TITLE, description: DESC, url: 'https://ebirly.com', siteName: 'Tondji Lee', locale: 'fr_FR', type: 'website' },
+  twitter: { title: TITLE, description: DESC, card: 'summary_large_image' },
   robots: { index: true, follow: true },
-  twitter: { title: 'Tondji Lee', card: 'summary_large_image' },
+  icons: { icon: '/ebirly.png', apple: '/ebirly.png' },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f7f7f5' },
+    { media: '(prefers-color-scheme: dark)', color: '#0b0b0c' },
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${fontSans.variable} ${fontMono.variable}`}>
-        {/* Decorative fixed layers */}
-        <div className="grid-bg" aria-hidden="true" />
-        <div className="noise"   aria-hidden="true" />
-        <div className="scanline" aria-hidden="true" />
-
-        {/* Custom cursor */}
-        <div id="cursor-dot"  className="cursor-dot"  aria-hidden="true" />
-        <div id="cursor-ring" className="cursor-ring" aria-hidden="true" />
-        <CursorFx />
-
-        <LangProvider>
-          <Nav />
-          <main id="top">{children}</main>
-        </LangProvider>
+    <html lang='fr' suppressHydrationWarning>
+      <body className={`${sans.variable} ${serif.variable} font-sans`}>
+        <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+          <LangProvider>
+            <a
+              href='#main'
+              className='sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-fg focus:px-4 focus:py-2 focus:text-bg'
+            >
+              Skip to content
+            </a>
+            <Nav />
+            <main id='main'>{children}</main>
+            <Footer />
+          </LangProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

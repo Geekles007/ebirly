@@ -2,12 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   output: 'export',
-  images: {
-    domains: ['cdn.dribbble.com'],
-    unoptimized: true,
-    // loader: 'custom',
-    // path: 'https://cdn.dribbble.com/',
-  },
+  images: { unoptimized: true },
 };
 
 export default nextConfig;

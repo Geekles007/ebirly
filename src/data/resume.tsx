@@ -124,7 +124,7 @@ export const DATA = {
     {
       icon: Icons.music,
       name: 'Listen to music',
-      description: 'HIP HOP, Rnb, Jazz, Rock, Makossa, etc...',
+      description: 'HIP HOP, Rnb, jazz, Rock, Makossa, etc...',
     },
   ],
   work: [

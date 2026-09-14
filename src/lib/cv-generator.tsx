@@ -25,7 +25,7 @@ const C = {
   black:    '#0a0a0a',
   dark:     '#1a1a1a',
   white:    '#ffffff',
-  accent:   '#c6ff3d',
+  accent:   '#e39a0f',
   muted:    '#5a5a5a',
   faint:    '#8a8a8a',
   border:   '#e0e0e0',
